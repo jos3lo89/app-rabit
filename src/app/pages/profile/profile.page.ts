@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { User } from '@angular/fire/auth';
+import { ToastService} from 'src/app/shared/services/toast.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +14,36 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule],
 })
 export class ProfilePage implements OnInit {
+  private _authService = inject(AuthService);
+  private _toast = inject(ToastService);
+  private _router = inject(Router);
+
+  user: User | null = null;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._authService.authState$.subscribe({
+      next: (data) => {
+        this.user = data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  async logOut() {
+    try {
+      await this._authService.cerrarSesion();
+      this._router.navigateByUrl('/home');
+      this._toast.getToast('Cerraste sesión', 'middle', 'warning');
+    } catch (error) {
+      this._toast.getToast('Error al cerrar sesión', 'middle', 'danger');
+      console.log(error);
+    }
+  }
+
+  pushRouter(route: string) {
+    this._router.navigateByUrl(route);
+  }
 }

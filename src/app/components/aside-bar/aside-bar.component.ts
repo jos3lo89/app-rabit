@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ToggleThemeComponent } from '../toggle-theme/toggle-theme.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
   personOutline,
   personSharp,
   homeOutline,
   homeSharp,
+  logInOutline,
+  logInSharp,
+  logOutOutline,
+  logOutSharp,
 } from 'ionicons/icons';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { User } from '@angular/fire/auth';
+import { ToastService } from 'src/app/shared/services/toast.service';
 @Component({
   selector: 'app-aside-bar',
   templateUrl: './aside-bar.component.html',
@@ -17,18 +24,34 @@ import {
   imports: [IonicModule, ToggleThemeComponent, RouterLink, RouterLinkActive],
 })
 export class AsideBarComponent implements OnInit {
-  constructor() {}
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
+  private _toast = inject(ToastService);
+  user: User | null = null;
 
-  ngOnInit() {
+  appPages = [{ title: 'Inicio', url: '/home', icon: 'home', isAuth: false }];
+
+  constructor() {
     addIcons({
       homeOutline,
       homeSharp,
       personOutline,
       personSharp,
+      logInOutline,
+      logInSharp,
+      logOutOutline,
+      logOutSharp,
     });
   }
-  public appPages = [
-    { title: 'Inicio', url: '/home', icon: 'home' },
-    { title: 'Perfil', url: '/profile', icon: 'person' },
-  ];
+
+  ngOnInit() {
+    this._authService.authState$.subscribe({
+      next: (data) => {
+        this.user = data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
 }

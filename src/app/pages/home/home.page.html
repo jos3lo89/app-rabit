@@ -1,14 +1,25 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Inicio</ion-title>
-    <app-cart-btn slot="end" />
-  </ion-toolbar>
-</ion-header> -->
+<ion-content [fullscreen]="true">
+  <ion-card (click)="pushRouter('/list-pizzas')">
+    <ion-card-title>
+      <ion-item>Pizzas</ion-item>
+    </ion-card-title>
+    <ion-card-content>
+      <img
+        src="https://i.pinimg.com/736x/f5/07/50/f50750d89014cb1ae593ac6e76b77176.jpg"
+        alt="pizzas"
+      />
+    </ion-card-content>
+  </ion-card>
 
-<ion-content>
-  <!-- <ion-content [fullscreen]="true"> -->
-  <h1>home page Lorem ipsum dolor sit amet33 consectetur adipisicing elit. Fugiat repellendus saepe vero dicta ut, at provident dolor sed et excepturi quisquam odio quos illum eius dolorum impedit beatae harum deserunt iste sit. Deserunt laudantium deleniti libero. Est impedit quod nihil blanditiis quae odit volup</h1>
+  <ion-card (click)="pushRouter('/list-drinks')">
+    <ion-card-title>
+      <ion-item>Bebidas</ion-item>
+    </ion-card-title>
+    <ion-card-content>
+      <img
+        src="https://i.pinimg.com/736x/f5/07/50/f50750d89014cb1ae593ac6e76b77176.jpg"
+        alt="bebidas"
+      />
+    </ion-card-content>
+  </ion-card>
 </ion-content>

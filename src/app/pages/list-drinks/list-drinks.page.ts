@@ -1,0 +1,54 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DrinkService } from 'src/app/shared/services/drink.service';
+import { DrinkDb } from 'src/app/shared/interfaces/drink.interfaces';
+import { IonicModule } from '@ionic/angular';
+
+@Component({
+  selector: 'app-list-drinks',
+  templateUrl: './list-drinks.page.html',
+  styleUrls: ['./list-drinks.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule],
+})
+export class ListDrinksPage implements OnInit {
+  private _drinkService = inject(DrinkService);
+
+  drinks: DrinkDb[] | null = null;
+  filteredDrinksF: DrinkDb[] | null = null;
+
+  constructor() {}
+
+  ngOnInit() {
+    this.getingDrinks();
+  }
+
+  getingDrinks() {
+    this._drinkService.listingDrinks().subscribe({
+      next: (data) => {
+        this.drinks = data;
+        this.filteredDrinksF = data;
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  filterDrinks(event: any) {
+    const query = event.detail.value?.toLowerCase() || '';
+
+    if (!query) {
+      this.filteredDrinksF = this.drinks;
+      return;
+    }
+    if (!this.drinks) return;
+    this.filteredDrinksF = this.drinks.filter((drink) =>
+      drink.nombre.toLowerCase().includes(query)
+    );
+  }
+  pushDetails(id: string) {
+    console.log(id);
+  }
+}
