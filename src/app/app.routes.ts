@@ -24,21 +24,22 @@ export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/routes/auth.routes'),
-  },  {
+  },
+  {
     path: 'add-pizza',
-    loadComponent: () => import('./pages/add-pizza/add-pizza.page').then( m => m.AddPizzaPage)
+    loadComponent: () => import('./pages/add-pizza/add-pizza.page').then(m => m.AddPizzaPage)
   },
   {
     path: 'add-drink',
-    loadComponent: () => import('./pages/add-drink/add-drink.page').then( m => m.AddDrinkPage)
+    loadComponent: () => import('./pages/add-drink/add-drink.page').then(m => m.AddDrinkPage)
   },
   {
     path: 'list-pizzas',
-    loadComponent: () => import('./pages/list-pizzas/list-pizzas.page').then( m => m.ListPizzasPage)
+    loadComponent: () => import('./pages/list-pizzas/list-pizzas.page').then(m => m.ListPizzasPage)
   },
   {
     path: 'list-drinks',
-    loadComponent: () => import('./pages/list-drinks/list-drinks.page').then( m => m.ListDrinksPage)
+    loadComponent: () => import('./pages/list-drinks/list-drinks.page').then(m => m.ListDrinksPage)
   },
 
 ];

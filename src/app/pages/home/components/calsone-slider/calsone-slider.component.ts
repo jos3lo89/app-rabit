@@ -5,10 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './calsone-slider.component.html',
   styleUrls: ['./calsone-slider.component.scss'],
 })
-export class CalsoneSliderComponent  implements OnInit {
+export class CalsoneSliderComponent {
 
   constructor() { }
 
-  ngOnInit() {}
 
 }
