@@ -49,8 +49,6 @@ export class UploadImageService {
 
       if (!image.dataUrl) return null;
 
-      console.log(image);
-
       return image.dataUrl;
     } catch (error) {
       console.log(error);
