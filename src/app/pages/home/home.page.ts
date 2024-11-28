@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -18,12 +18,12 @@ import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.
     DrinksSliderComponent,
   ],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   private _router = inject(Router);
   pizzas: PizzaDb[] | null = null;
-  constructor() {}
 
-  ngOnInit() {}
+  constructor() { }
+
 
   pushRouter(route: string) {
     this._router.navigateByUrl(route);

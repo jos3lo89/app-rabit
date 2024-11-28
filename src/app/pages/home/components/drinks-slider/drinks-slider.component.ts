@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { DrinkDb } from 'src/app/shared/interfaces/drink.interfaces';
 import { DrinkService } from 'src/app/shared/services/drink.service';
+
 @Component({
   selector: 'app-drinks-slider',
   templateUrl: './drinks-slider.component.html',
@@ -11,17 +12,20 @@ import { DrinkService } from 'src/app/shared/services/drink.service';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class DrinksSliderComponent implements OnInit {
+export class DrinksSliderComponent {
   private _drinkservice = inject(DrinkService);
   private _router = inject(Router);
 
   drinks: DrinkDb[] | null = null;
 
-  constructor() {}
+  constructor() {
 
-  ngOnInit() {
     this.getingPizzas();
+
   }
+
+  // ngOnInit() {
+  // }
 
   getingPizzas() {
     this._drinkservice.listingDrinks().subscribe({

@@ -12,15 +12,13 @@ import { PizzaService } from 'src/app/shared/services/pizza.service';
   standalone: true,
   imports: [IonicModule, CommonModule],
 })
-export class PizzasSliderComponent implements OnInit {
+export class PizzasSliderComponent {
   private _pizzaService = inject(PizzaService);
   private _router = inject(Router);
 
   pizzas: PizzaDb[] | null = null;
 
-  constructor() {}
-
-  ngOnInit() {
+  constructor() {
     this.getingPizzas();
   }
 

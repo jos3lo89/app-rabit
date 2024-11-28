@@ -1,6 +1,11 @@
 <ion-content [fullscreen]="true">
   @if (pizzas) {
+<ion-card>
 
+    <ion-button (click)="pushRouter('/home')"  expand="full" fill="clear" >
+      Atras
+    </ion-button>
+  </ion-card>
   <div>
     <ion-card>
       <ion-searchbar

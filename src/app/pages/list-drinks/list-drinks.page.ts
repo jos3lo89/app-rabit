@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { DrinkService } from 'src/app/shared/services/drink.service';
 import { DrinkDb } from 'src/app/shared/interfaces/drink.interfaces';
 import { IonicModule } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-drinks',
@@ -14,11 +15,11 @@ import { IonicModule } from '@ionic/angular';
 })
 export class ListDrinksPage implements OnInit {
   private _drinkService = inject(DrinkService);
-
+  private _router = inject(Router)
   drinks: DrinkDb[] | null = null;
   filteredDrinksF: DrinkDb[] | null = null;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.getingDrinks();
@@ -51,4 +52,11 @@ export class ListDrinksPage implements OnInit {
   pushDetails(id: string) {
     console.log(id);
   }
+
+
+  pushRouter(route: string) {
+    this._router.navigateByUrl(route)
+  }
+
+
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Query } from '@angular/core';
+import { Component, inject, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -13,18 +13,18 @@ import { NavigationExtras, Router } from '@angular/router';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class ListPizzasPage implements OnInit {
+export class ListPizzasPage {
   private _pizzasService = inject(PizzaService);
   private _router = inject(Router);
 
   pizzas: PizzaDb[] | null = null;
   filteredPizzas: PizzaDb[] | null = null;
 
-  constructor() {}
+  constructor() {
 
-  ngOnInit() {
     this.getingPizzas();
   }
+
 
   getingPizzas() {
     this._pizzasService.listingPizzas().subscribe({
@@ -61,5 +61,8 @@ export class ListPizzasPage implements OnInit {
     this.filteredPizzas = this.pizzas.filter((pizza) =>
       pizza.nombre.toLowerCase().includes(query)
     );
+  }
+  pushRouter(route: string) {
+    this._router.navigateByUrl(route)
   }
 }
