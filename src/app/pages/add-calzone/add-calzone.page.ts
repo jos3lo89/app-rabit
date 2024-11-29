@@ -1,11 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { CalzoneService } from 'src/app/services/calzone.service';
+import { CalzoneService } from 'src/app/shared/services/calzone.service';
 import { CameraSource } from '@capacitor/camera';
 import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
 import { addIcons } from 'ionicons';
@@ -16,22 +21,20 @@ import { camera, close, image } from 'ionicons/icons';
   templateUrl: './add-calzone.page.html',
   styleUrls: ['./add-calzone.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule],
 })
 export class AddCalzonePage {
-
-
   private _fb = inject(FormBuilder);
   private _router = inject(Router);
   private _uploadImageService = inject(UploadImageService);
   private _calzoneService = inject(CalzoneService);
-  private _toast = inject(ToastService)
+  private _toast = inject(ToastService);
 
   dynamicPrice: number = 0;
   openModal = false;
   calzoneFoto: string | null = null;
-  addLoading = false
-  rolls: CalzoneDB[] | null = null
+  addLoading = false;
+  rolls: CalzoneDB[] | null = null;
   CameraSource = CameraSource;
 
   form = this._fb.group({
@@ -44,20 +47,18 @@ export class AddCalzonePage {
     addIcons({ camera, close, image });
   }
 
-
   async addCalzone() {
     try {
       const { descripcion, nombre, precio } = this.form.value;
 
       if (!this.calzoneFoto) {
-        console.log("Insertar un foto");
-        return
-      };
+        console.log('Insertar un foto');
+        return;
+      }
 
       if (!descripcion || !nombre || !precio) return;
 
-
-      this.addLoading = true
+      this.addLoading = true;
 
       await this._calzoneService.addCalzone(
         {
@@ -66,17 +67,16 @@ export class AddCalzonePage {
           precio,
         },
         this.calzoneFoto
-
       );
 
-      this._toast.getToast("registrado con exito", "middle", "success")
-      this.form.reset()
-      this.calzoneFoto = null
-      this.addLoading = false
+      this._toast.getToast('registrado con exito', 'middle', 'success');
+      this.form.reset();
+      this.calzoneFoto = null;
+      this.addLoading = false;
     } catch (error) {
       console.log(error);
-      this._toast.getToast("Error al registrar", "bottom", "danger")
-      this.addLoading = false
+      this._toast.getToast('Error al registrar', 'bottom', 'danger');
+      this.addLoading = false;
     }
   }
 
@@ -106,6 +106,4 @@ export class AddCalzonePage {
   quitarFoto() {
     this.calzoneFoto = null;
   }
-
-
 }
