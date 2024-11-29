@@ -1,13 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>list-calzone</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">list-calzone</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  @if (calzones) {
+<ion-card>
+
+    <ion-button (click)="pushRouter('/home')"  expand="full" fill="clear" >
+      Atras
+    </ion-button>
+  </ion-card>
+  <div>
+    <ion-card>
+      <ion-searchbar
+        show-clear-button="focus"
+        animated="true"
+        placeholder="Buscar aqui..."
+        (ionInput)="filterCalzone($event)"
+      ></ion-searchbar>
+    </ion-card>
+  </div>
+  <div class="box-card">
+    @for (calzone of filteredCalzone; track $index) {
+
+    <ion-card (click)="pushDetails(calzone.id)">
+      <ion-card-content>
+        <img src="{{calzone.image}}" alt="{{calzone.nombre}}" />
+      </ion-card-content>
+      <ion-card-header>
+        <ion-card-title>{{calzone.nombre}}</ion-card-title>
+        <ion-card-subtitle>{{calzone.descripcion}}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    }
+  </div>
+  } @else {
+  <div class="spinner-box">
+    <ion-spinner></ion-spinner>
+  </div>
+  }
 </ion-content>

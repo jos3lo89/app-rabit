@@ -24,13 +24,17 @@ export class ListCalzonePage {
 
 
 
-  constructor() { }
+  constructor() {
+    this.getingCalzone()
+  }
 
   getingCalzone() {
     this._calzoneService.getingCalzone().subscribe({
       next: (data) => {
         this.calzones = data
         this.filteredCalzone = data
+        console.log(data);
+
       },
       error: (error) => {
         console.log(error);
@@ -56,6 +60,10 @@ export class ListCalzonePage {
     this.filteredCalzone = this.calzones.filter((pizza) =>
       pizza.nombre.toLowerCase().includes(query)
     );
+  }
+
+  pushRouter(route: string) {
+    this._router.navigateByUrl(route)
   }
 
 }

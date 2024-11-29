@@ -6,6 +6,7 @@ import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
 import { PizzasSliderComponent } from './components/pizzas-slider/pizzas-slider.component';
 import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.component';
 import { RollsSliderComponent } from './components/rolls-slider/rolls-slider.component';
+import { CalsoneSliderComponent } from './components/calsone-slider/calsone-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,9 @@ import { RollsSliderComponent } from './components/rolls-slider/rolls-slider.com
     CommonModule,
     PizzasSliderComponent,
     DrinksSliderComponent,
-    RollsSliderComponent
+    RollsSliderComponent,
+    CalsoneSliderComponent
+
   ],
 })
 export class HomePage {
