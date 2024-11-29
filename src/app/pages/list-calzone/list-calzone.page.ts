@@ -1,0 +1,61 @@
+import { Component, inject, } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { CalzoneService } from 'src/app/shared/services/calzone.service';
+import { Router } from '@angular/router';
+import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
+
+@Component({
+  selector: 'app-list-calzone',
+  templateUrl: './list-calzone.page.html',
+  styleUrls: ['./list-calzone.page.scss'],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
+})
+export class ListCalzonePage {
+
+  private _calzoneService = inject(CalzoneService)
+  private _router = inject(Router)
+
+  calzones: CalzoneDB[] | null = null
+  filteredCalzone: CalzoneDB[] | null = null
+
+
+
+
+  constructor() { }
+
+  getingCalzone() {
+    this._calzoneService.getingCalzone().subscribe({
+      next: (data) => {
+        this.calzones = data
+        this.filteredCalzone = data
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    })
+  }
+
+  pushDetails(id: string) {
+    console.log(id);
+
+  }
+
+
+  filterCalzone(event: any) {
+    const query = event.detail.value?.toLowerCase() || '';
+
+    if (!query) {
+      this.filteredCalzone = this.calzones;
+      return;
+    }
+    if (!this.calzones) return;
+    this.filteredCalzone = this.calzones.filter((pizza) =>
+      pizza.nombre.toLowerCase().includes(query)
+    );
+  }
+
+}

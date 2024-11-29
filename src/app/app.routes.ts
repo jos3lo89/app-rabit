@@ -44,4 +44,8 @@ export const routes: Routes = [
     path: 'list-drinks',
     loadComponent: () => import('./pages/list-drinks/list-drinks.page').then(m => m.ListDrinksPage)
   },
+  {
+    path: 'list-calzone',
+    loadComponent: () => import('./pages/list-calzone/list-calzone.page').then( m => m.ListCalzonePage)
+  },
 ];
