@@ -3,3 +3,9 @@ export interface RollsForm {
   descripcion: string;
   precio: number;
 }
+
+
+export interface RollsDb extends RollsForm {
+  id: string
+  image: string
+}

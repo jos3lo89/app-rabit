@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
 import { PizzasSliderComponent } from './components/pizzas-slider/pizzas-slider.component';
 import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.component';
+import { RollsSliderComponent } from './components/rolls-slider/rolls-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.
     CommonModule,
     PizzasSliderComponent,
     DrinksSliderComponent,
+    RollsSliderComponent
   ],
 })
 export class HomePage {

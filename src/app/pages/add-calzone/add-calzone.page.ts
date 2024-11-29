@@ -1,33 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Camera, CameraSource } from '@capacitor/camera';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
-import { addIcons } from 'ionicons';
-import { camera, close, image } from 'ionicons/icons';
-import { RollsService } from 'src/app/shared/services/rolls.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { RollsDb } from 'src/app/shared/interfaces/rolls.interface';
 
 @Component({
-  selector: 'app-add-rolls',
-  templateUrl: './add-rolls.page.html',
-  styleUrls: ['./add-rolls.page.scss'],
+  selector: 'app-add-calzone',
+  templateUrl: './add-calzone.page.html',
+  styleUrls: ['./add-calzone.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, ReactiveFormsModule],
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class AddRollsPage {
+export class AddCalzonePage {
+
+
   private _fb = inject(FormBuilder);
   private _router = inject(Router);
   private _uploadImageService = inject(UploadImageService);
-  private _rollsService = inject(RollsService);
+  private _rollsService = inject();
   private _toast = inject(ToastService)
 
   dynamicPrice: number = 0;
@@ -108,4 +100,6 @@ export class AddRollsPage {
   quitarFoto() {
     this.fotoRoll = null;
   }
+
+
 }

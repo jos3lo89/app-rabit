@@ -1,6 +1,10 @@
 <ion-content [fullscreen]="true">
   @if (user) {
-
+<ion-card>
+<ion-button (click)="pushRouter('/home')"  expand="full" fill="clear" >
+Atras
+    </ion-button>
+  </ion-card>
   <ion-card>
     <ion-card-content
       style="max-width: 350px; margin-left: auto; margin-right: auto"

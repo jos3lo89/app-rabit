@@ -12,6 +12,13 @@ import {
   logInSharp,
   logOutOutline,
   logOutSharp,
+  pizza,
+  pizzaOutline,
+  pizzaSharp,
+  beerSharp,
+  beerOutline,
+  apertureSharp,
+  apertureOutline,
 } from 'ionicons/icons';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from '@angular/fire/auth';
@@ -29,7 +36,14 @@ export class AsideBarComponent implements OnInit {
   private _toast = inject(ToastService);
   user: User | null = null;
 
-  appPages = [{ title: 'Inicio', url: '/home', icon: 'home', isAuth: false }];
+  appPages = [
+    { title: 'Inicio', url: '/home', icon: 'home', isAuth: false },
+    { title: 'Pizzas', url: '/list-pizzas', icon: 'pizza', isAuth: false },
+    { title: 'Bebidas', url: '/list-drinks', icon: 'beer', isAuth: false },
+    { title: 'Rolls', url: '/list-rolls', icon: 'aperture', isAuth: false }
+
+
+  ];
 
   constructor() {
     addIcons({
@@ -41,6 +55,12 @@ export class AsideBarComponent implements OnInit {
       logInSharp,
       logOutOutline,
       logOutSharp,
+      pizzaOutline,
+      pizzaSharp,
+      beerSharp,
+      beerOutline,
+      apertureSharp,
+      apertureOutline
     });
   }
 

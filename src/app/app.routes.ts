@@ -44,6 +44,14 @@ export const routes: Routes = [
     path: 'add-rolls',
     loadComponent: () => import('./pages/add-rolls/add-rolls.page').then( m => m.AddRollsPage)
   },
+  {
+    path: 'list-rolls',
+    loadComponent: () => import('./pages/list-rolls/list-rolls.page').then( m => m.ListRollsPage)
+  },
+  {
+    path: 'add-calzone',
+    loadComponent: () => import('./pages/add-calzone/add-calzone.page').then( m => m.AddCalzonePage)
+  },
 
 
 ];

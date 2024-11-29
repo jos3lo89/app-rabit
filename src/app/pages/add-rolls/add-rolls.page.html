@@ -37,8 +37,8 @@
             labelPlacement="floating"
             (ionChange)="updateDynamicPrice($event)"
           >
-            <ion-select-option value="5">6 unidades</ion-select-option>
-            <ion-select-option value="10">12 unidades</ion-select-option>
+            <ion-select-option aria-hidden="true" value="5">6 unidades</ion-select-option>
+            <ion-select-option aria-hidden="true" value="10">12 unidades</ion-select-option>
           </ion-select>
 
           <div>
@@ -103,7 +103,7 @@
         </ion-modal>
 
         <ion-button type="submit" [disabled]="!form.valid"
-          >Registrar</ion-button
+        >{{addLoading ? "Registrando..." : "Registrar" }}</ion-button
         >
       </form>
     </ion-card-content>
