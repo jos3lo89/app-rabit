@@ -1,17 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { CalzoneService } from 'src/app/services/calzone.service';
+import { CameraSource } from '@capacitor/camera';
+import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
+import { addIcons } from 'ionicons';
+import { camera, close, image } from 'ionicons/icons';
 
 @Component({
   selector: 'app-add-calzone',
   templateUrl: './add-calzone.page.html',
   styleUrls: ['./add-calzone.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
 })
 export class AddCalzonePage {
 
@@ -19,20 +24,20 @@ export class AddCalzonePage {
   private _fb = inject(FormBuilder);
   private _router = inject(Router);
   private _uploadImageService = inject(UploadImageService);
-  private _rollsService = inject();
+  private _calzoneService = inject(CalzoneService);
   private _toast = inject(ToastService)
 
   dynamicPrice: number = 0;
   openModal = false;
-  fotoRoll: string | null = null;
+  calzoneFoto: string | null = null;
   addLoading = false
-  rolls: RollsDb[] | null = null
+  rolls: CalzoneDB[] | null = null
   CameraSource = CameraSource;
 
   form = this._fb.group({
     nombre: this._fb.control('', [Validators.required]),
     descripcion: this._fb.control('', [Validators.required]),
-    precio: this._fb.control(5, [Validators.required]),
+    precio: this._fb.control(10, [Validators.required]),
   });
 
   constructor() {
@@ -40,11 +45,11 @@ export class AddCalzonePage {
   }
 
 
-  async addRoll() {
+  async addCalzone() {
     try {
       const { descripcion, nombre, precio } = this.form.value;
 
-      if (!this.fotoRoll) {
+      if (!this.calzoneFoto) {
         console.log("Insertar un foto");
         return
       };
@@ -54,18 +59,19 @@ export class AddCalzonePage {
 
       this.addLoading = true
 
-      await this._rollsService.addRolls(
+      await this._calzoneService.addCalzone(
         {
           descripcion,
           nombre,
           precio,
         },
-        this.fotoRoll
+        this.calzoneFoto
+
       );
 
       this._toast.getToast("registrado con exito", "middle", "success")
       this.form.reset()
-      this.fotoRoll = null
+      this.calzoneFoto = null
       this.addLoading = false
     } catch (error) {
       console.log(error);
@@ -75,7 +81,7 @@ export class AddCalzonePage {
   }
 
   async takeImage(source: CameraSource) {
-    this.fotoRoll = await this._uploadImageService.takeImage(source);
+    this.calzoneFoto = await this._uploadImageService.takeImage(source);
     this.closeModal();
   }
 
@@ -98,7 +104,7 @@ export class AddCalzonePage {
   }
 
   quitarFoto() {
-    this.fotoRoll = null;
+    this.calzoneFoto = null;
   }
 
 

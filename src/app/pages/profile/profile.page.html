@@ -61,19 +61,24 @@ Atras
   @if (user.email === "pma.mode.18@gmail.com") {
 
   <ion-card class="box-btn">
-    <ion-button fill="clear" (click)="pushRouter('/add-pizza')">
+    <ion-button fill="clear" (click)="pushRouter('/private/add-pizza')">
       Agregar pizza
     </ion-button>
   </ion-card>
 
   <ion-card class="box-btn">
-    <ion-button fill="clear" (click)="pushRouter('/add-drink')">
+    <ion-button fill="clear" (click)="pushRouter('/private/add-drink')">
       Agregar bebida
     </ion-button>
   </ion-card>
   <ion-card class="box-btn">
-    <ion-button fill="clear" (click)="pushRouter('/add-rolls')">
+    <ion-button fill="clear" (click)="pushRouter('/private/add-rolls')">
       Agregar rolls
+    </ion-button>
+  </ion-card>
+  <ion-card class="box-btn">
+    <ion-button fill="clear" (click)="pushRouter('/private/add-calzone')">
+      Agregar Calzone
     </ion-button>
   </ion-card>
 

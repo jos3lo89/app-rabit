@@ -7,31 +7,34 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
-    loadComponent: () =>
-      import('./pages/home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: 'profile',
     loadComponent: () =>
       import('./pages/profile/profile.page').then((m) => m.ProfilePage),
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/routes/auth.routes'),
+  },
+
+  {
+    path: "private",
+    loadChildren: () => import("./routes/private.routes")
+  },
+
+
   {
     path: 'cart',
     loadComponent: () =>
       import('./pages/cart/cart.page').then((m) => m.CartPage),
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./auth/routes/auth.routes'),
+    path: 'home',
+    loadComponent: () =>
+      import('./pages/home/home.page').then((m) => m.HomePage),
   },
   {
-    path: 'add-pizza',
-    loadComponent: () => import('./pages/add-pizza/add-pizza.page').then(m => m.AddPizzaPage)
-  },
-  {
-    path: 'add-drink',
-    loadComponent: () => import('./pages/add-drink/add-drink.page').then(m => m.AddDrinkPage)
+    path: 'list-rolls',
+    loadComponent: () => import('./pages/list-rolls/list-rolls.page').then(m => m.ListRollsPage)
   },
   {
     path: 'list-pizzas',
@@ -40,18 +43,5 @@ export const routes: Routes = [
   {
     path: 'list-drinks',
     loadComponent: () => import('./pages/list-drinks/list-drinks.page').then(m => m.ListDrinksPage)
-  },  {
-    path: 'add-rolls',
-    loadComponent: () => import('./pages/add-rolls/add-rolls.page').then( m => m.AddRollsPage)
   },
-  {
-    path: 'list-rolls',
-    loadComponent: () => import('./pages/list-rolls/list-rolls.page').then( m => m.ListRollsPage)
-  },
-  {
-    path: 'add-calzone',
-    loadComponent: () => import('./pages/add-calzone/add-calzone.page').then( m => m.AddCalzonePage)
-  },
-
-
 ];
