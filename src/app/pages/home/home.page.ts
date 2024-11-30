@@ -6,7 +6,7 @@ import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
 import { PizzasSliderComponent } from './components/pizzas-slider/pizzas-slider.component';
 import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.component';
 import { RollsSliderComponent } from './components/rolls-slider/rolls-slider.component';
-import { CalsoneSliderComponent } from './components/calsone-slider/calsone-slider.component';
+import { CalzoneSliderComponent } from './components/calzone-slider/calzone-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -19,16 +19,14 @@ import { CalsoneSliderComponent } from './components/calsone-slider/calsone-slid
     PizzasSliderComponent,
     DrinksSliderComponent,
     RollsSliderComponent,
-    CalsoneSliderComponent
-
+    CalzoneSliderComponent,
   ],
 })
 export class HomePage {
   private _router = inject(Router);
   pizzas: PizzaDb[] | null = null;
 
-  constructor() { }
-
+  constructor() {}
 
   pushRouter(route: string) {
     this._router.navigateByUrl(route);

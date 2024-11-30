@@ -6,12 +6,12 @@ import { CalzoneService } from 'src/app/shared/services/calzone.service';
 
 @Component({
   selector: 'app-calsone-slider',
-  templateUrl: './calsone-slider.component.html',
-  styleUrls: ['./calsone-slider.component.scss'],
+  templateUrl: './calzone-slider.component.html',
+  styleUrls: ['./calzone-slider.component.scss'],
   standalone: true,
   imports: [IonicModule]
 })
-export class CalsoneSliderComponent {
+export class CalzoneSliderComponent {
   private _calzoneService = inject(CalzoneService)
   private _router = inject(Router)
 

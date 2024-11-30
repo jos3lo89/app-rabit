@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CalsoneSliderComponent } from './calsone-slider.component';
+import { CalzoneSliderComponent } from './calzone-slider.component';
 
 describe('CalsoneSliderComponent', () => {
-  let component: CalsoneSliderComponent;
-  let fixture: ComponentFixture<CalsoneSliderComponent>;
+  let component: CalzoneSliderComponent;
+  let fixture: ComponentFixture<CalzoneSliderComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CalsoneSliderComponent ],
+      declarations: [ CalzoneSliderComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CalsoneSliderComponent);
+    fixture = TestBed.createComponent(CalzoneSliderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
