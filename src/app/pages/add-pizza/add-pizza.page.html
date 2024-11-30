@@ -18,9 +18,7 @@
         [counter]="true"
         maxlength="50"
       ></ion-input>
-
       <br />
-
       <ion-textarea
         formControlName="descripcion"
         label="Descripción"
@@ -30,7 +28,6 @@
         [counter]="true"
         maxlength="100"
       ></ion-textarea>
-
       <br />
 
       <ion-select
@@ -41,7 +38,21 @@
         <ion-select-option value="artesanal">Artesanal</ion-select-option>
         <ion-select-option value="clasica">Clásica</ion-select-option>
       </ion-select>
+      <br />
 
+      <div formGroupName="opciones">
+        <ion-select
+          formControlName="tipo"
+          label="Tipo de sabor"
+          labelPlacement="floating"
+        >
+          <ion-select-option value="salada">salada</ion-select-option>
+          <ion-select-option value="dulce">dulce</ion-select-option>
+          <ion-select-option value="salada-dulce"
+            >salada-dulce</ion-select-option
+          >
+        </ion-select>
+      </div>
       <br />
       <ion-select
         formControlName="tipoPizza"
@@ -51,48 +62,44 @@
       >
         <ion-select-option value="sencilla">Sencilla</ion-select-option>
         <ion-select-option value="duo">Dúo</ion-select-option>
-        <ion-select-option value="cuatro-estaciones">
-          Cuatro Estaciones
-        </ion-select-option>
+        <ion-select-option value="cuatro-estaciones"
+          >Cuatro Estaciones</ion-select-option
+        >
       </ion-select>
 
       <br />
 
-      @if (form.get("tipoPizza")?.value === "duo") {
+      @if (form.get('tipoPizza')?.value === 'duo') {
       <div formGroupName="duo">
         <ion-input formControlName="mitad1" label="Mitad 1"></ion-input>
         <ion-input formControlName="mitad2" label="Mitad 2"></ion-input>
       </div>
-
       <br />
-
-      } @if (form.get("tipoPizza")?.value === "cuatro-estaciones") {
+      } @if (form.get('tipoPizza')?.value === 'cuatro-estaciones') {
       <div formGroupName="cuatroEstaciones">
         <ion-input
           formControlName="cuarto1"
-          label="Cuarto 1"
+          label="Cuarto 1: "
           placeholder="Ingrese el sabor del primer cuarto"
         ></ion-input>
         <ion-input
           formControlName="cuarto2"
-          label="Cuarto 2"
+          label="Cuarto 2: "
           placeholder="Ingrese el sabor del segundo cuarto"
         ></ion-input>
         <ion-input
           formControlName="cuarto3"
-          label="Cuarto 3"
+          label="Cuarto 3: "
           placeholder="Ingrese el sabor del tercer cuarto"
         ></ion-input>
         <ion-input
           formControlName="cuarto4"
-          label="Cuarto 4"
+          label="Cuarto 4: "
           placeholder="Ingrese el sabor del cuarto cuarto"
         ></ion-input>
       </div>
-      }
-
       <br />
-
+      }
       <ion-select
         label="Descuento"
         label-placement="floating"
@@ -103,9 +110,7 @@
         <ion-select-option value="0.2">20%</ion-select-option>
         <ion-select-option value="0.3">30%</ion-select-option>
       </ion-select>
-
       <br />
-
       <div class="form-box-title">
         <ion-title size="large">Precio por tamaño</ion-title>
       </div>
@@ -126,14 +131,12 @@
           type="number"
         ></ion-input>
       </div>
-
       <br />
-
       <ion-button color="tertiary" (click)="openModal2()"
         >Agregar foto</ion-button
       >
-
       @if (fotoPizza) {
+
       <div>
         <ion-card>
           <img [src]="fotoPizza" alt="Foto de la pizza" />
@@ -165,8 +168,6 @@
           </ion-content>
         </ng-template>
       </ion-modal>
-
-      <br />
 
       <ion-button color="secondary" type="submit">
         {{ guardando ? 'Guardando...' : 'Guardar' }}

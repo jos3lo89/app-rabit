@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { PizzaService } from 'src/app/shared/services/pizza.service';
 import {
+  CuatroEstaciones,
   PizzaDb,
   TamanosPrecios,
 } from 'src/app/shared/interfaces/pizza.interfaces';
@@ -35,6 +36,37 @@ export class DetailsPizzaPage implements OnInit {
   tamanoSeleccionado: Tamaño = 'familiar';
   precioUnitario: number = 0;
 
+  opcionesDuo = ['Hawaiana', 'Pepperoni', 'Vegetariana', 'Carnes'];
+  opcionesCuatroEstaciones = [
+    'Hawaiana',
+    'Pepperoni',
+    'Vegetariana',
+    'Mexicana',
+  ];
+
+  tipoSeleccionado: string = 'salada';
+  masaSeleccionada: string = 'clasica';
+  configuracionSeleccionada: string = 'completa';
+  onTipoChange(event: any) {
+    this.tipoSeleccionado = event.detail.value;
+  }
+  onMasaChange(event: any) {
+    this.masaSeleccionada = event.detail.value;
+  }
+
+  onDuoChange(event: any, mitad: 'mitad1' | 'mitad2') {
+    if (this.pizza && this.pizza.opciones.duo) {
+      this.pizza.opciones.duo[mitad] = event.detail.value;
+    }
+  }
+
+  onCuartoChange(event: any, cuarto: string) {
+    if (this.pizza && this.pizza.opciones.cuatroEstaciones) {
+      this.pizza.opciones.cuatroEstaciones[cuarto as keyof CuatroEstaciones] =
+        event.detail.value;
+    }
+  }
+
   constructor() {
     this._activatedRoute.queryParams.subscribe((param) => {
       if (param['id']) {
@@ -60,6 +92,8 @@ export class DetailsPizzaPage implements OnInit {
         console.log(data);
         this.pizza = data;
         this.actualizarPrecio();
+        // confuguracion de la piza
+        this.configuracionSeleccionada = data.tipoPizza;
       },
       error: (error) => {
         console.log(error);

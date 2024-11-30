@@ -27,6 +27,8 @@ export class ListPizzasPage {
   getingPizzas() {
     this._pizzasService.listingPizzas().subscribe({
       next: (data) => {
+        console.log(data);
+
         this.pizzas = data;
         this.filteredPizzas = data;
       },

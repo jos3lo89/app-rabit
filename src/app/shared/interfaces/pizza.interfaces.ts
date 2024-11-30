@@ -1,44 +1,11 @@
-// export interface Pizza {
-//   nombre: string;
-//   descripcion: string;
-//   masa: string;
-//   descuento: string;
-//   tipoPizza: string;
-//   duo: Duo;
-//   cuatroEstaciones: CuatroEstaciones;
-//   tamanosPrecios: TamanosPrecios;
-// }
-
-// export interface Duo {
-//   mitad1: string | null;
-//   mitad2: string | null;
-// }
-
-// export interface CuatroEstaciones {
-//   cuarto1: string | null;
-//   cuarto2: string | null;
-//   cuarto3: string | null;
-//   cuarto4: string | null;
-// }
-
-// export interface TamanosPrecios {
-//   familiar: number;
-//   mediana: number;
-//   personal: number;
-// }
-
-// export interface PizzaDb extends Pizza {
-//   id: string;
-//   image: string;
-// }
-
 export interface Pizza {
   nombre: string;
   descripcion: string;
   masa: string;
-  tipoPizza: string;
+  descuento: string;
+  tipoPizza: string; // Define el tipo de pizza: "duo", "sencilla", "cuatro-estaciones", etc.
   tamanosPrecios: TamanosPrecios;
-  opciones: OpcionesPizza;
+  opciones: OpcionesPizza; // Las opciones como dulce, salada o ambas
 }
 
 export interface TamanosPrecios {
@@ -48,26 +15,26 @@ export interface TamanosPrecios {
 }
 
 export interface OpcionesPizza {
-  tipo: 'dulce' | 'salada';
+  tipo: 'salada' | 'dulce' | 'salada-dulce'; // Nuevo campo para elegir entre salada, dulce o ambas
   masa: 'artesanal' | 'clasica';
-  configuracion: 'completa' | 'duo' | 'cuatroEstaciones';
-  duo?: Duo;
-  cuatroEstaciones?: CuatroEstaciones;
+  configuracion: 'completa' | 'duo' | 'cuatro-estaciones'; // Cómo está configurada la pizza
+  duo?: Duo; // Solo si la pizza tiene la opción "duo"
+  cuatroEstaciones?: CuatroEstaciones; // Solo si la pizza tiene la opción "cuatro-estaciones"
 }
 
 export interface Duo {
-  mitad1: string | null;
-  mitad2: string | null;
+  mitad1: string | null; // Primera mitad de la pizza (puede ser "americana", "hawaina", etc.)
+  mitad2: string | null; // Segunda mitad de la pizza
 }
 
 export interface CuatroEstaciones {
-  cuarto1: string | null;
-  cuarto2: string | null;
-  cuarto3: string | null;
-  cuarto4: string | null;
+  cuarto1: string | null; // Ingredientes para la primera sección de la pizza
+  cuarto2: string | null; // Ingredientes para la segunda sección
+  cuarto3: string | null; // Ingredientes para la tercera sección
+  cuarto4: string | null; // Ingredientes para la cuarta sección
 }
 
 export interface PizzaDb extends Pizza {
-  id: string;
-  image: string;
+  id: string; // ID único de la pizza en la base de datos
+  image: string; // URL de la imagen de la pizza
 }

@@ -9,12 +9,6 @@ import { camera, close, image } from 'ionicons/icons';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { PizzaService } from 'src/app/shared/services/pizza.service';
-import {
-  CuatroEstaciones,
-  Duo,
-  Pizza,
-  TamanosPrecios,
-} from 'src/app/shared/interfaces/pizza.interfaces';
 import { fb } from './utils/pizzaForm';
 
 @Component({
@@ -43,105 +37,30 @@ export class AddPizzaPage implements OnInit {
   }
 
   async guardarPizza() {
-    // if (this.form.invalid) {
-    //   console.log('Formulario inválido:', this.form.errors);
-    //   this._toast.getToast(
-    //     'Por favor, complete todos los campos requeridos.',
-    //     'middle',
-    //     'danger'
-    //   );
-    //   return;
-    // }
-
-    if (!this.fotoPizza) {
-      console.log('No se ha seleccionado una imagen para la pizza.');
-      this._toast.getToast(
-        'Debe añadir una foto de la pizza.',
-        'middle',
-        'danger'
-      );
-      return;
-    }
-
-    const tipoPizza = this.form.get('tipoPizza')?.value;
-    if (tipoPizza === 'duo') {
-      const duo = this.form.get('duo')?.value as Duo;
-      if (!duo?.mitad1 || !duo?.mitad2) {
-        console.log('Faltan sabores para la pizza dúo:', duo);
-        this._toast.getToast(
-          'Debe especificar ambos sabores para la pizza dúo.',
-          'middle',
-          'danger'
-        );
-        return;
-      }
-    } else if (tipoPizza === 'cuatro-estaciones') {
-      const cuatroEstaciones = this.form.get('cuatroEstaciones')
-        ?.value as CuatroEstaciones;
-      if (
-        !cuatroEstaciones?.cuarto1 ||
-        !cuatroEstaciones?.cuarto2 ||
-        !cuatroEstaciones?.cuarto3 ||
-        !cuatroEstaciones?.cuarto4
-      ) {
-        console.log(
-          'Faltan sabores para la pizza cuatro estaciones:',
-          cuatroEstaciones
-        );
-        this._toast.getToast(
-          'Debe especificar los cuatro sabores para la pizza Cuatro Estaciones.',
-          'middle',
-          'danger'
-        );
-        return;
-      }
-    }
-
-    const tamanosPrecios = this.form.get('tamanosPrecios')
-      ?.value as TamanosPrecios;
-    if (
-      !tamanosPrecios?.familiar ||
-      !tamanosPrecios?.mediana ||
-      !tamanosPrecios?.personal
-    ) {
-      console.log('Faltan precios para los tamaños:', tamanosPrecios);
-      this._toast.getToast(
-        'Debe especificar los precios para todos los tamaños.',
-        'middle',
-        'danger'
-      );
-      return;
-    }
-
-    this.guardando = true;
     try {
-      const pizza: Pizza = this.form.value as Pizza;
-      const resultado = await this._pizzaService.uploadPizza(
-        pizza,
-        this.fotoPizza
-      );
-      if (resultado) {
-        // console.log('Pizza guardada exitosamente:', resultado);
-        this._toast.getToast('Pizza guardada con éxito.', 'middle', 'success');
-        // this.pushRouter('/pizzas'); // Redirigir a otra página tras guardar
-        this.form.reset();
-        this.fotoPizza = null;
-      } else {
-        console.log('Error al guardar la pizza.');
-        this._toast.getToast(
-          'No se pudo guardar la pizza. Intente nuevamente.',
-          'middle',
-          'danger'
-        );
+      if (!this.form.valid) {
+        this._toast.getToast('Corrija el formulario', 'top', 'warning');
+        return;
       }
+
+      if (!this.fotoPizza) {
+        this._toast.getToast('Agregue una foto', 'top', 'warning');
+        return;
+      }
+
+      this.guardando = true;
+
+      console.log(this.form.value);
+
+      await this._pizzaService.uploadPizza(this.form.value, this.fotoPizza);
+
+      this.form.reset();
+      this.fotoPizza = null;
+      this._toast.getToast('Pizza registrado', 'middle', 'success');
+      this.guardando = false;
     } catch (error) {
-      console.log('Error inesperado al guardar la pizza:', error);
-      this._toast.getToast(
-        'Ocurrió un error inesperado al guardar la pizza.',
-        'middle',
-        'danger'
-      );
-    } finally {
+      console.log(error);
+      this._toast.getToast('No se pudo registrar la pizza', 'middle', 'danger');
       this.guardando = false;
     }
   }

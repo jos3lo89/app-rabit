@@ -20,7 +20,7 @@ export class PizzaService {
   private collectionName = 'pizzas';
   constructor() {}
 
-  async uploadPizza(pizza: Pizza, image: string) {
+  async uploadPizza(pizza: any, image: string) {
     try {
       const imgUrl = await this._uploadImageService.uploadImage(image);
 

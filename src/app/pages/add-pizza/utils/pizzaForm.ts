@@ -9,17 +9,25 @@ export const fb = () => {
     descripcion: fb.control('', [Validators.required]),
     masa: fb.control('artesanal', [Validators.required]),
     descuento: fb.control('0.0', [Validators.required]),
+
     tipoPizza: fb.control('sencilla'),
+
+    opciones: fb.group({
+      tipo: fb.control('salada', [Validators.required]),
+    }),
+
     duo: fb.group({
-      mitad1: fb.control<string | null>(null, [Validators.required]),
-      mitad2: fb.control<string | null>(null, [Validators.required]),
+      mitad1: fb.control<string | null>(null),
+      mitad2: fb.control<string | null>(null),
     }),
+
     cuatroEstaciones: fb.group({
-      cuarto1: fb.control<string | null>(null, [Validators.required]),
-      cuarto2: fb.control<string | null>(null, [Validators.required]),
-      cuarto3: fb.control<string | null>(null, [Validators.required]),
-      cuarto4: fb.control<string | null>(null, [Validators.required]),
+      cuarto1: fb.control<string | null>(null),
+      cuarto2: fb.control<string | null>(null),
+      cuarto3: fb.control<string | null>(null),
+      cuarto4: fb.control<string | null>(null),
     }),
+
     tamanosPrecios: fb.group({
       familiar: fb.control<number | null>(null, Validators.required),
       mediana: fb.control<number | null>(null, Validators.required),

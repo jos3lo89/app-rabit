@@ -15,20 +15,6 @@
     </div>
   </ion-card>
 
-  <!-- Selección de tamaño -->
-  <!-- <ion-card>
-    <ion-select
-      label="Tamaño de la pizza"
-      label-placement="floating"
-      [value]="tamanoSeleccionado"
-      (ionChange)="onTamanoChange($event)"
-    >
-      <ion-select-option value="familiar">Familiar</ion-select-option>
-      <ion-select-option value="mediana">Mediana</ion-select-option>
-      <ion-select-option value="personal">Personal</ion-select-option>
-    </ion-select>
-  </ion-card> -->
-
   <ion-card>
     <div class="form-box">
       <ion-select
@@ -45,9 +31,7 @@
     </div>
   </ion-card>
 
-
   <ion-card>
-    <!-- Selección de tipo de pizza -->
     <ion-select
       label="Tipo de pizza"
       label-placement="floating"
@@ -92,7 +76,7 @@
     </ion-item>
   </ion-card>
 
-  <ion-card *ngIf="configuracionSeleccionada === 'cuatroEstaciones'">
+  <ion-card *ngIf="configuracionSeleccionada === 'cuatro-estaciones'">
     <!-- Selección de cuartos para Cuatro Estaciones -->
     <ion-item *ngFor="let cuarto of [1, 2, 3, 4]; let i = index">
       <ion-label>Cuarto {{ i + 1 }}</ion-label>
