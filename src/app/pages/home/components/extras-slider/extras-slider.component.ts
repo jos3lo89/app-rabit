@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { DrinkDb } from 'src/app/shared/interfaces/drink.interfaces';
-import { DrinkService } from 'src/app/shared/services/drink.service';
+import { ExtrasDb } from 'src/app/shared/interfaces/extras.interfaces';
+import { ExtrasService } from 'src/app/shared/services/extras.service';
 
 @Component({
-  selector: 'app-drinks-slider',
-  templateUrl: './drinks-slider.component.html',
-  styleUrls: ['./drinks-slider.component.scss'],
+  selector: 'app-extras-slider',
+  templateUrl: './extras-slider.component.html',
+  styleUrls: ['./extras-slider.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule],
+  imports: [CommonModule, IonicModule],
 })
-export class DrinksSliderComponent {
-  private _drinkservice = inject(DrinkService);
+export class ExtrasSliderComponent {
+  private _extrasService = inject(ExtrasService);
   private _router = inject(Router);
   isContentVisible = true;
 
@@ -21,7 +21,7 @@ export class DrinksSliderComponent {
     this.isContentVisible = !this.isContentVisible;
   }
 
-  drinks: DrinkDb[] | null = null;
+  extras: ExtrasDb[] | null = null;
 
   constructor() {
     this.getingPizzas();
@@ -31,13 +31,13 @@ export class DrinksSliderComponent {
   // }
 
   getingPizzas() {
-    this._drinkservice.listingDrinks().subscribe({
+    this._extrasService.listingExtras().subscribe({
       next: (data) => {
         // const newData = data.map((p, i) => {
         //   return i < 2 && p;
         // });
 
-        this.drinks = data;
+        this.extras = data;
       },
       error: (error) => {
         console.log(error);

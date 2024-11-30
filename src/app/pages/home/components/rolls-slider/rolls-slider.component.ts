@@ -10,31 +10,33 @@ import { RollsService } from 'src/app/shared/services/rolls.service';
   templateUrl: './rolls-slider.component.html',
   styleUrls: ['./rolls-slider.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule,]
+  imports: [IonicModule, CommonModule],
 })
 export class RollsSliderComponent {
-  private _rollsService = inject(RollsService)
-  private _route = inject(Router)
-  rolls: null | RollsDb[] = null
+  private _rollsService = inject(RollsService);
+  private _route = inject(Router);
+  rolls: null | RollsDb[] = null;
+
+  isContentVisible = true;
+
+  toggleVisibility() {
+    this.isContentVisible = !this.isContentVisible;
+  }
+
   constructor() {
-
-
     this._rollsService.listingRolls().subscribe({
       next: (data) => {
-        this.rolls = data
-      }, error: (error) => {
+        this.rolls = data;
+      },
+      error: (error) => {
         console.log(error);
-
-      }
-    })
-
+      },
+    });
   }
   pushRouter(url: string) {
-    this._route.navigateByUrl(url)
+    this._route.navigateByUrl(url);
   }
   pushDetails(id: string) {
     console.log(id);
-
   }
-
 }

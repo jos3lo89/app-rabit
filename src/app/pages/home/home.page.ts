@@ -7,6 +7,7 @@ import { PizzasSliderComponent } from './components/pizzas-slider/pizzas-slider.
 import { DrinksSliderComponent } from './components/drinks-slider/drinks-slider.component';
 import { RollsSliderComponent } from './components/rolls-slider/rolls-slider.component';
 import { CalzoneSliderComponent } from './components/calzone-slider/calzone-slider.component';
+import { ExtrasSliderComponent } from './components/extras-slider/extras-slider.component';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ import { CalzoneSliderComponent } from './components/calzone-slider/calzone-slid
     DrinksSliderComponent,
     RollsSliderComponent,
     CalzoneSliderComponent,
+    ExtrasSliderComponent,
   ],
 })
 export class HomePage {

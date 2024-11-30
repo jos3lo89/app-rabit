@@ -2,10 +2,19 @@
 
 <div class="box-home">
   <ion-card>
-    <ion-card-title (click)="pushRouter('/list-pizzas')">
-      <ion-item>Pizzas</ion-item>
+    <ion-card-title style="margin: 0;">
+      <div style="display: flex; width: 100%; justify-content: space-between">
+        <ion-button fill="clear" (click)="pushRouter('/list-pizzas')"
+          >Pizzas</ion-button
+        >
+        <ion-button fill="clear" slot="end" (click)="toggleVisibility()">
+          {{ isContentVisible ? "Ocultar" : "Ver" }}
+        </ion-button>
+      </div>
     </ion-card-title>
-    <ion-card-content>
+    @if (isContentVisible) {
+
+    <ion-card-content style="margin: 0;">
       <ion-list class="horizontal-list">
         <ion-grid>
           @for (pizza of pizzas; track $index) {
@@ -27,6 +36,7 @@
         </ion-grid>
       </ion-list>
     </ion-card-content>
+    }
   </ion-card>
 </div>
 

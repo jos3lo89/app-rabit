@@ -1,8 +1,8 @@
 <ion-content [fullscreen]="true">
   @if (user) {
-<ion-card>
-<ion-button (click)="pushRouter('/home')"  expand="full" fill="clear" >
-Atras
+  <ion-card>
+    <ion-button (click)="pushRouter('/home')" expand="full" fill="clear">
+      Atras
     </ion-button>
   </ion-card>
   <ion-card>
@@ -79,6 +79,11 @@ Atras
   <ion-card class="box-btn">
     <ion-button fill="clear" (click)="pushRouter('/private/add-calzone')">
       Agregar Calzone
+    </ion-button>
+  </ion-card>
+  <ion-card class="box-btn">
+    <ion-button fill="clear" (click)="pushRouter('/private/add-extras')">
+      Agregar Extras
     </ion-button>
   </ion-card>
 

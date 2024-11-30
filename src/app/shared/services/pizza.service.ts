@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
+  getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 import { UploadImageService } from './upload-image.service';
@@ -50,6 +52,24 @@ export class PizzaService {
           observer.complete();
         })
         .catch((error) => observer.error(error));
+    });
+  }
+
+  gettingPizzaWithId(id: string): Observable<PizzaDb> {
+    const coleccionReferencia = doc(this._fireStore, `pizzas/${id}`);
+    return new Observable((observer) => {
+      getDoc(coleccionReferencia)
+        .then((querySnapShot) => {
+          const item = {
+            id: querySnapShot.id,
+            ...querySnapShot.data(),
+          } as PizzaDb;
+          observer.next(item);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
     });
   }
 }

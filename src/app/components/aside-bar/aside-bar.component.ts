@@ -40,9 +40,9 @@ export class AsideBarComponent implements OnInit {
     { title: 'Inicio', url: '/home', icon: 'home', isAuth: false },
     { title: 'Pizzas', url: '/list-pizzas', icon: 'pizza', isAuth: false },
     { title: 'Bebidas', url: '/list-drinks', icon: 'beer', isAuth: false },
-    { title: 'Rolls', url: '/list-rolls', icon: 'aperture', isAuth: false }
-
-
+    { title: 'Rolls', url: '/list-rolls', icon: 'aperture', isAuth: false },
+    { title: 'Calzone', url: '/list-calzone', icon: 'aperture', isAuth: false },
+    { title: 'Extras', url: '/list-extras', icon: 'aperture', isAuth: false },
   ];
 
   constructor() {
@@ -60,7 +60,7 @@ export class AsideBarComponent implements OnInit {
       beerSharp,
       beerOutline,
       apertureSharp,
-      apertureOutline
+      apertureOutline,
     });
   }
 

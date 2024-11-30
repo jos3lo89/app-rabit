@@ -17,10 +17,9 @@ export const routes: Routes = [
   },
 
   {
-    path: "private",
-    loadChildren: () => import("./routes/private.routes")
+    path: 'private',
+    loadChildren: () => import('./routes/private.routes'),
   },
-
 
   {
     path: 'cart',
@@ -34,18 +33,36 @@ export const routes: Routes = [
   },
   {
     path: 'list-rolls',
-    loadComponent: () => import('./pages/list-rolls/list-rolls.page').then(m => m.ListRollsPage)
+    loadComponent: () =>
+      import('./pages/list-rolls/list-rolls.page').then((m) => m.ListRollsPage),
   },
   {
     path: 'list-pizzas',
-    loadComponent: () => import('./pages/list-pizzas/list-pizzas.page').then(m => m.ListPizzasPage)
+    loadComponent: () =>
+      import('./pages/list-pizzas/list-pizzas.page').then(
+        (m) => m.ListPizzasPage
+      ),
   },
   {
     path: 'list-drinks',
-    loadComponent: () => import('./pages/list-drinks/list-drinks.page').then(m => m.ListDrinksPage)
+    loadComponent: () =>
+      import('./pages/list-drinks/list-drinks.page').then(
+        (m) => m.ListDrinksPage
+      ),
   },
   {
     path: 'list-calzone',
-    loadComponent: () => import('./pages/list-calzone/list-calzone.page').then( m => m.ListCalzonePage)
+    loadComponent: () =>
+      import('./pages/list-calzone/list-calzone.page').then(
+        (m) => m.ListCalzonePage
+      ),
+  },
+  {
+    path: 'list-extras',
+    loadComponent: () => import('./pages/list-extras/list-extras.page').then( m => m.ListExtrasPage)
+  },
+  {
+    path: 'details-pizza',
+    loadComponent: () => import('./pages/details-pizza/details-pizza.page').then( m => m.DetailsPizzaPage)
   },
 ];

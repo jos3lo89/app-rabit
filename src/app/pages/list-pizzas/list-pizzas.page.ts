@@ -1,4 +1,4 @@
-import { Component, inject, } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -21,10 +21,8 @@ export class ListPizzasPage {
   filteredPizzas: PizzaDb[] | null = null;
 
   constructor() {
-
     this.getingPizzas();
   }
-
 
   getingPizzas() {
     this._pizzasService.listingPizzas().subscribe({
@@ -40,14 +38,12 @@ export class ListPizzasPage {
 
   pushDetails(id: string) {
     console.log(id);
-
-    // const params: NavigationExtras = {
-    //   queryParams: {
-    //     id,
-    //   },
-    // };
-
-    // this._router.navigate(['/pizza-details'], params);
+    this._router.navigate(['/details-pizza'], {
+      queryParams: {
+        id,
+        backUrl: 'list-pizzas',
+      },
+    });
   }
 
   filterPizzas(event: any) {
@@ -62,7 +58,8 @@ export class ListPizzasPage {
       pizza.nombre.toLowerCase().includes(query)
     );
   }
+
   pushRouter(route: string) {
-    this._router.navigateByUrl(route)
+    this._router.navigateByUrl(route);
   }
 }

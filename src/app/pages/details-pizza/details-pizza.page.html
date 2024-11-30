@@ -1,0 +1,109 @@
+<ion-content [fullscreen]="true">
+  <ion-card class="box-back-btn">
+    <ion-button fill="clear" expand="full" (click)="pushRouter()">
+      <ion-text size="large" color="secondary">Atras</ion-text>
+    </ion-button>
+  </ion-card>
+
+  <ion-card *ngIf="pizza">
+    <div class="box-img">
+      <img class="img-detalles" [src]="pizza.image" alt="Imagen de pizza" />
+    </div>
+    <div style="text-align: center">
+      <h5 style="color: yellow">{{ pizza.nombre }}</h5>
+      <p>{{ pizza.descripcion }}</p>
+    </div>
+  </ion-card>
+
+  <!-- Selección de tamaño -->
+  <!-- <ion-card>
+    <ion-select
+      label="Tamaño de la pizza"
+      label-placement="floating"
+      [value]="tamanoSeleccionado"
+      (ionChange)="onTamanoChange($event)"
+    >
+      <ion-select-option value="familiar">Familiar</ion-select-option>
+      <ion-select-option value="mediana">Mediana</ion-select-option>
+      <ion-select-option value="personal">Personal</ion-select-option>
+    </ion-select>
+  </ion-card> -->
+
+  <ion-card>
+    <div class="form-box">
+      <ion-select
+        label="Seleccione su tamaño preferido"
+        label-placement="floating"
+        [value]="tamanoSeleccionado"
+        (ionChange)="onTamanoChange($event)"
+      >
+        <ion-select-option value="familiar">Familiar</ion-select-option>
+        <ion-select-option value="mediana">Mediano</ion-select-option>
+        <ion-select-option value="personal">Personal</ion-select-option>
+      </ion-select>
+      <p>Precio: {{ precioUnitario | currency }}</p>
+    </div>
+  </ion-card>
+
+
+  <ion-card>
+    <!-- Selección de tipo de pizza -->
+    <ion-select
+      label="Tipo de pizza"
+      label-placement="floating"
+      [value]="tipoSeleccionado"
+      (ionChange)="onTipoChange($event)"
+    >
+      <ion-select-option value="dulce">Dulce</ion-select-option>
+      <ion-select-option value="salada">Salada</ion-select-option>
+    </ion-select>
+  </ion-card>
+
+  <ion-card>
+    <!-- Selección de masa -->
+    <ion-select
+      label="Tipo de masa"
+      label-placement="floating"
+      [value]="masaSeleccionada"
+      (ionChange)="onMasaChange($event)"
+    >
+      <ion-select-option value="artesanal">Artesanal</ion-select-option>
+      <ion-select-option value="clasica">Clásica</ion-select-option>
+    </ion-select>
+  </ion-card>
+
+  <ion-card *ngIf="configuracionSeleccionada === 'duo'">
+    <!-- Selección de mitad para Duo -->
+    <ion-item>
+      <ion-label>Mitad 1</ion-label>
+      <ion-select (ionChange)="onDuoChange($event, 'mitad1')">
+        <ion-select-option *ngFor="let opcion of opcionesDuo" [value]="opcion">
+          {{ opcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Mitad 2</ion-label>
+      <ion-select (ionChange)="onDuoChange($event, 'mitad2')">
+        <ion-select-option *ngFor="let opcion of opcionesDuo" [value]="opcion">
+          {{ opcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card *ngIf="configuracionSeleccionada === 'cuatroEstaciones'">
+    <!-- Selección de cuartos para Cuatro Estaciones -->
+    <ion-item *ngFor="let cuarto of [1, 2, 3, 4]; let i = index">
+      <ion-label>Cuarto {{ i + 1 }}</ion-label>
+      <ion-select (ionChange)="onCuartoChange($event, 'cuarto' + (i + 1))">
+        <ion-select-option
+          *ngFor="let opcion of opcionesCuatroEstaciones"
+          [value]="opcion"
+        >
+          {{ opcion }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+</ion-content>

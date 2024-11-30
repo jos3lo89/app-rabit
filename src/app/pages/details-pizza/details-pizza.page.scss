@@ -1,0 +1,19 @@
+.box-img {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  .img-detalles {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+  }
+}
+
+.form-box {
+  margin: 1rem 0;
+}
+
+ion-card {
+  margin: 0.5rem 0;
+}

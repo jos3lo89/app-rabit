@@ -21,6 +21,11 @@ export class PizzasSliderComponent {
   constructor() {
     this.getingPizzas();
   }
+  isContentVisible = true;
+
+  toggleVisibility() {
+    this.isContentVisible = !this.isContentVisible;
+  }
 
   getingPizzas() {
     this._pizzaService.listingPizzas().subscribe({
@@ -43,5 +48,11 @@ export class PizzasSliderComponent {
 
   pushDetails(id: string) {
     console.log(id);
+    this._router.navigate(['/details-pizza'], {
+      queryParams: {
+        id,
+        backUrl: 'home',
+      },
+    });
   }
 }

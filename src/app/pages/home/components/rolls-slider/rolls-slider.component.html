@@ -1,37 +1,47 @@
-
 @if (rolls) {
 
-<div class="box-home">
-  <ion-card>
-    <ion-card-title (click)="pushRouter('/list-rolls')">
-      <ion-item>Rolls</ion-item>
-    </ion-card-title>
-    <ion-card-content>
-      <ion-list class="horizontal-list">
-        <ion-grid>
-          @for (roll of rolls; track $index) {
-          <ion-card class="box-region" (click)="pushDetails(roll.id)">
-            <ion-card-content>
-              <img
-                class="image-img"
-                src="{{ roll.image }}"
-                alt="{{ roll.nombre }}"
-              />
-            </ion-card-content>
-            <ion-card-header>
-              <ion-card-title>{{ roll.nombre }}</ion-card-title>
-              <!-- <ion-card-subtitle>{{"lagarto"}}</ion-card-subtitle> -->
-            </ion-card-header>
-          </ion-card>
-          }
-        </ion-grid>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</div>
+  <div class="box-home">
+    <ion-card>
+      <ion-card-title style="margin: 0;">
+        <div style="display: flex; width: 100%; justify-content: space-between">
+          <ion-button fill="clear" (click)="pushRouter('/list-rolls')"
+            >Rolls</ion-button
+          >
+          <ion-button fill="clear" slot="end" (click)="toggleVisibility()">
+            {{ isContentVisible ? "Ocultar" : "Ver" }}
+          </ion-button>
+        </div>
+      </ion-card-title>
+      @if (isContentVisible) {
 
-} @else {
-<div class="box-spinner">
-  <ion-spinner></ion-spinner>
-</div>
-}
+      <ion-card-content style="margin: 0;">
+        <ion-list class="horizontal-list">
+          <ion-grid>
+            @for (roll of rolls; track $index) {
+
+            <ion-card class="box-region" (click)="pushDetails(roll.id)">
+              <ion-card-content>
+                <img
+                  class="image-img"
+                  src="{{ roll.image }}"
+                  alt="{{ roll.nombre }}"
+                />
+              </ion-card-content>
+              <ion-card-header>
+                <ion-card-title>{{ roll.nombre }}</ion-card-title>
+                <!-- <ion-card-subtitle>{{"lagarto"}}</ion-card-subtitle> -->
+              </ion-card-header>
+            </ion-card>
+            }
+          </ion-grid>
+        </ion-list>
+      </ion-card-content>
+      }
+    </ion-card>
+  </div>
+
+  } @else {
+  <div class="box-spinner">
+    <ion-spinner></ion-spinner>
+  </div>
+  }
