@@ -10,6 +10,7 @@ import {
   PizzaDb,
   TamanosPrecios,
 } from 'src/app/shared/interfaces/pizza.interfaces';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 type Tamaño = keyof TamanosPrecios; // 'familiar' | 'mediana' | 'personal'
 
@@ -25,6 +26,7 @@ export class DetailsPizzaPage implements OnInit {
   private _authService = inject(AuthService);
   private _pizzaService = inject(PizzaService);
   private _router = inject(Router);
+  private _toast = inject(ToastService);
 
   userId: string | null = null;
   params = {
@@ -36,6 +38,8 @@ export class DetailsPizzaPage implements OnInit {
   tamanoSeleccionado: Tamaño = 'familiar';
   precioUnitario: number = 0;
 
+  quantity: number = 1; // Cantidad inicial
+
   opcionesDuo = ['Hawaiana', 'Pepperoni', 'Vegetariana', 'Carnes'];
   opcionesCuatroEstaciones = [
     'Hawaiana',
@@ -43,6 +47,23 @@ export class DetailsPizzaPage implements OnInit {
     'Vegetariana',
     'Mexicana',
   ];
+
+  // Agregar al carrito
+  async addToCart() {
+    // Simulación de agregar al carrito
+    const cartItem = {
+      pizza: this.pizza,
+      quantity: this.quantity,
+    };
+
+    console.log('Item agregado al carrito:', cartItem);
+
+    this._toast.getToast(
+      `${this.pizza?.nombre} agregado al carrito.`,
+      'middle',
+      'success'
+    );
+  }
 
   tipoSeleccionado: string = 'salada';
   masaSeleccionada: string = 'clasica';
@@ -119,5 +140,17 @@ export class DetailsPizzaPage implements OnInit {
 
   pushRouter() {
     this._router.navigateByUrl(`/${this.params.backUrl}`);
+  }
+
+  // Incrementar cantidad
+  increaseQuantity() {
+    this.quantity++;
+  }
+
+  // Disminuir cantidad (mínimo 1)
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
   }
 }
