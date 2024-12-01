@@ -31,3 +31,11 @@ ion-spinner {
   align-items: center;
   height: 250px;
 }
+
+
+
+ion-card-title {
+  white-space: nowrap; /* Evita que el texto se envuelva en varias líneas */
+  overflow: hidden; /* Oculta el texto que se desborda */
+  text-overflow: ellipsis; /* Agrega los 3 puntos (...) */
+}

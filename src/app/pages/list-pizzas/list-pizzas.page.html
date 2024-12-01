@@ -24,7 +24,11 @@
       </ion-card-content>
       <ion-card-header>
         <ion-card-title>{{pizza.nombre}}</ion-card-title>
-        <ion-card-subtitle>{{pizza.descripcion}}</ion-card-subtitle>
+        @if (pizza.opciones.esDuo) {
+        <span style="color: cornflowerblue">Duo</span>
+        } @if (pizza.opciones.esCuatroEstaciones) {
+        <span style="color: cornflowerblue">Cuatro estaciones</span>
+        }
       </ion-card-header>
     </ion-card>
 

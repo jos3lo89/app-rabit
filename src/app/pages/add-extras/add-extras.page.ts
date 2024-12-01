@@ -1,19 +1,20 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { CameraSource } from '@capacitor/camera';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { addIcons } from 'ionicons';
 import { camera, close, image } from 'ionicons/icons';
 import { ExtrasService } from 'src/app/shared/services/extras.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { Router } from '@angular/router';
+import { Component, OnInit, inject } from '@angular/core';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-add-extras',
@@ -79,6 +80,8 @@ export class AddExtrasPage implements OnInit {
 
       this.form.reset();
       this.addLoading = false;
+
+      this.fotoExtra = null;
 
       this._toastService.getToast(
         'Extras agergado correctament',
