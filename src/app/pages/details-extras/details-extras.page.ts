@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { ExtrasDb } from 'src/app/shared/interfaces/extras.interfaces';
 import { IonicModule } from '@ionic/angular';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details-extras',
@@ -23,7 +24,7 @@ export class DetailsExtrasPage implements OnInit {
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
-
+  private _loadingService = inject(LoadingService);
   params = {
     id: '',
     backUrl: '',
@@ -47,6 +48,9 @@ export class DetailsExtrasPage implements OnInit {
       return;
     }
     if (!this.extras) return;
+
+    const loading = await this._loadingService.loading();
+    await loading.present();
 
     try {
       this.addToCartLoading = true;
@@ -73,6 +77,8 @@ export class DetailsExtrasPage implements OnInit {
       this.addToCartLoading = false;
       console.log(error);
       this._toast.getToast('Error al añadir', 'middle', 'warning');
+    } finally {
+      loading.dismiss();
     }
   }
 

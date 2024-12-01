@@ -58,7 +58,7 @@
 
   <ion-card>
     <ion-button expand="block" (click)="addToCart()"
-      >Agregar al carrito</ion-button
+      >{{addToCartLoading ? "Agregando": "Agregar al carrito" }}</ion-button
     >
   </ion-card>
 

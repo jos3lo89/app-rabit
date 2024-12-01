@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -9,7 +10,7 @@ import { CalzoneService } from 'src/app/shared/services/calzone.service';
   templateUrl: './calzone-slider.component.html',
   styleUrls: ['./calzone-slider.component.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, CommonModule],
 })
 export class CalzoneSliderComponent {
   private _calzoneService = inject(CalzoneService);

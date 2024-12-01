@@ -8,6 +8,7 @@ import { PizzaService } from 'src/app/shared/services/pizza.service';
 import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details-pizza',
@@ -23,7 +24,7 @@ export class DetailsPizzaPage implements OnInit {
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
-
+  private _loadingService = inject(LoadingService);
   params = {
     id: '',
     backUrl: '',
@@ -145,6 +146,9 @@ export class DetailsPizzaPage implements OnInit {
     }
     if (!this.pizza) return;
 
+    const loading = await this._loadingService.loading();
+    await loading.present();
+
     try {
       this.addToCartLoading = true;
 
@@ -178,6 +182,8 @@ export class DetailsPizzaPage implements OnInit {
       this.addToCartLoading = false;
       console.log(error);
       this._toast.getToast('Error al añadir', 'middle', 'warning');
+    } finally {
+      loading.dismiss();
     }
   }
 }

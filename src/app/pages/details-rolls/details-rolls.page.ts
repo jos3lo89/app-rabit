@@ -8,6 +8,7 @@ import { ToastService } from 'src/app/shared/services/toast.service';
 import { RollsDb } from 'src/app/shared/interfaces/rolls.interface';
 import { IonicModule } from '@ionic/angular';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details-rolls',
@@ -23,6 +24,7 @@ export class DetailsRollsPage implements OnInit {
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
+  private _loadingService = inject(LoadingService);
 
   params = {
     id: '',
@@ -47,6 +49,9 @@ export class DetailsRollsPage implements OnInit {
       return;
     }
     if (!this.roll) return;
+
+    const loading = await this._loadingService.loading();
+    await loading.present();
 
     try {
       this.addToCartLoading = true;
@@ -73,6 +78,8 @@ export class DetailsRollsPage implements OnInit {
       this.addToCartLoading = false;
       console.log(error);
       this._toast.getToast('Error al añadir', 'middle', 'warning');
+    } finally {
+      loading.dismiss();
     }
   }
 

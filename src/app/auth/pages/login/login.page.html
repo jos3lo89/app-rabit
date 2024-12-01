@@ -52,7 +52,12 @@
           </ion-button>
           } @else {
           <app-google-btn (clickMe)="loginWithGoogle()" />
+
           }
+          <br />
+          <ion-button expand="full" fill="clear"  [routerLink]="['/auth/register']"
+            >Registrate</ion-button
+          >
         </ion-list>
       </form>
     </ion-card-content>

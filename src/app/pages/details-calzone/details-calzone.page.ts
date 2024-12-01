@@ -9,6 +9,7 @@ import { CalzoneService } from 'src/app/shared/services/calzone.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details-calzone',
@@ -24,6 +25,7 @@ export class DetailsCalzonePage implements OnInit {
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
+  private _loadingService = inject(LoadingService);
 
   params = {
     id: '',
@@ -106,6 +108,9 @@ export class DetailsCalzonePage implements OnInit {
     }
     if (!this.calzone) return;
 
+    const loading = await this._loadingService.loading();
+    await loading.present();
+
     try {
       this.addToCartLoading = true;
 
@@ -131,6 +136,8 @@ export class DetailsCalzonePage implements OnInit {
       this.addToCartLoading = false;
       console.log(error);
       this._toast.getToast('Error al añadir', 'middle', 'warning');
+    } finally {
+      loading.dismiss();
     }
   }
 }

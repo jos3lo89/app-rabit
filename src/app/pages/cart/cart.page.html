@@ -9,14 +9,19 @@
 
   @if (cartItems.length !== 0) {
 
-  <ion-list>
-    <ion-item
-      *ngFor="let item of cartItems"
-      style="margin-bottom: 10px; padding: 10px"
+  <!-- <ion-list> -->
+  <ion-card
+    *ngFor="let item of cartItems"
+    style="margin-bottom: 10px; padding: 10px"
+  >
+    <div
+      style="display: flex; justify-content: space-around; align-items: center"
     >
-      <ion-thumbnail slot="start">
-        <img [src]="item.imagen" alt="Imagen del producto" />
-      </ion-thumbnail>
+      <div>
+        <ion-thumbnail>
+          <img [src]="item.imagen" alt="Imagen del producto" />
+        </ion-thumbnail>
+      </div>
       <div style="display: flex; flex-direction: column">
         <div>
           <ion-label>
@@ -27,7 +32,13 @@
           </ion-label>
         </div>
 
-        <div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+          "
+        >
           <ion-button
             [disabled]="isUpdating"
             (click)="updateQuantity(item, 'increase')"
@@ -58,8 +69,9 @@
           </ion-button>
         </div>
       </div>
-    </ion-item>
-  </ion-list>
+    </div>
+  </ion-card>
+  <!-- </ion-list> -->
 
   <ion-card>
     <ion-button expand="full" fill="clear">

@@ -8,9 +8,10 @@ import {
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { GoogleBtnComponent } from '../../components/google-btn/google-btn.component';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { GoogleBtnComponent } from '../../components/google-btn/google-btn.compo
     FormsModule,
     ReactiveFormsModule,
     GoogleBtnComponent,
+    RouterLink,
   ],
 })
 export default class LoginPage implements OnInit {
@@ -30,6 +32,7 @@ export default class LoginPage implements OnInit {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   private _toast = inject(ToastService);
+  private _loadingService = inject(LoadingService);
 
   constructor() {}
 
@@ -54,16 +57,18 @@ export default class LoginPage implements OnInit {
     const { email, password } = this.form.value;
     if (!email || !password) return;
 
+    const loading = await this._loadingService.loading();
+    await loading.present();
     try {
-      this.isLoadingBtnSubmit = true;
+      // this.isLoadingBtnSubmit = true;
 
       const user = await this._authService.login({
         email,
         password,
       });
 
-      this._router.navigateByUrl('/pages/home');
-      this.isLoadingBtnSubmit = false;
+      this._router.navigateByUrl('/home');
+      // this.isLoadingBtnSubmit = false;
       this._toast.getToast(
         `Vienvenido ${
           user.user.displayName ? user.user.displayName : user.user.email
@@ -72,10 +77,13 @@ export default class LoginPage implements OnInit {
         'success'
       );
       this.form.reset();
+      loading.dismiss();
     } catch (error) {
       console.log(error);
       this._toast.getToast('Error al iniciar sesión', 'middle', 'danger');
-      this.isLoadingBtnSubmit = false;
+      // this.isLoadingBtnSubmit = false;
+
+      loading.dismiss();
     }
   }
 

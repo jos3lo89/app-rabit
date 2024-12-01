@@ -8,6 +8,7 @@ import { DrinkService } from 'src/app/shared/services/drink.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { DrinkDb } from 'src/app/shared/interfaces/drink.interfaces';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { LoadingService } from 'src/app/shared/services/loading.service';
 
 @Component({
   selector: 'app-details-drink',
@@ -23,6 +24,7 @@ export class DetailsDrinkPage implements OnInit {
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
+  private _loadingService = inject(LoadingService);
 
   params = {
     id: '',
@@ -105,6 +107,9 @@ export class DetailsDrinkPage implements OnInit {
     }
     if (!this.drink) return;
 
+    const loading = await this._loadingService.loading();
+    await loading.present();
+
     try {
       this.addToCartLoading = true;
 
@@ -130,6 +135,8 @@ export class DetailsDrinkPage implements OnInit {
       this.addToCartLoading = false;
       console.log(error);
       this._toast.getToast('Error al añadir', 'middle', 'warning');
+    } finally {
+      loading.dismiss();
     }
   }
 }
