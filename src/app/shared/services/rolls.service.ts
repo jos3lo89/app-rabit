@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
+  getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 import { RollsDb, RollsForm } from '../interfaces/rolls.interface';
@@ -16,7 +18,7 @@ export class RollsService {
   private _fireStore = inject(Firestore);
   private _uploadImageService = inject(UploadImageService);
   private nameCollection = 'rolls';
-  constructor() { }
+  constructor() {}
 
   async addRolls(data: RollsForm, foto: string) {
     try {
@@ -39,14 +41,13 @@ export class RollsService {
   }
 
   listingRolls(): Observable<RollsDb[]> {
-
-    const collRef = collection(this._fireStore, this.nameCollection)
+    const collRef = collection(this._fireStore, this.nameCollection);
 
     return new Observable((observer) => {
       getDocs(collRef)
         .then((qrysnapshot) => {
           const items = qrysnapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() } as RollsDb
+            return { id: doc.id, ...doc.data() } as RollsDb;
           });
 
           observer.next(items);
@@ -54,7 +55,23 @@ export class RollsService {
         })
         .catch((error) => observer.error(error));
     });
-
   }
 
+  gettingRollWithId(id: string): Observable<RollsDb> {
+    const coleccionReferencia = doc(this._fireStore, `rolls/${id}`);
+    return new Observable((observer) => {
+      getDoc(coleccionReferencia)
+        .then((querySnapShot) => {
+          const item = {
+            id: querySnapShot.id,
+            ...querySnapShot.data(),
+          } as RollsDb;
+          observer.next(item);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
 }

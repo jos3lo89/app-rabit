@@ -42,14 +42,12 @@ export class ListRollsPage {
 
   pushDetails(id: string) {
     console.log(id);
-
-    // const params: NavigationExtras = {
-    //   queryParams: {
-    //     id,
-    //   },
-    // };
-
-    // this._router.navigate(['/pizza-details'], params);
+    this._router.navigate(['/details-rolls'], {
+      queryParams: {
+        id,
+        backUrl: 'list-rolls',
+      },
+    });
   }
 
   filterrolls(event: any) {

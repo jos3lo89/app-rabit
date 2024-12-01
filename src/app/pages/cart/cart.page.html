@@ -1,13 +1,90 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Inicio</ion-title>
-    <app-cart-btn slot="end" />
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
-  <h1>cart</h1>
+  @if (cartItems) {
+
+  <ion-card class="box-back-btn">
+    <ion-button fill="clear" expand="full">
+      <ion-text size="large" color="secondary">Carrito de compras</ion-text>
+    </ion-button>
+  </ion-card>
+
+  @if (cartItems.length !== 0) {
+
+  <ion-list>
+    <ion-item
+      *ngFor="let item of cartItems"
+      style="margin-bottom: 10px; padding: 10px"
+    >
+      <ion-thumbnail slot="start">
+        <img [src]="item.imagen" alt="Imagen del producto" />
+      </ion-thumbnail>
+      <div style="display: flex; flex-direction: column">
+        <div>
+          <ion-label>
+            <h2>{{ item.nombre }}</h2>
+            <p>Precio: s/ {{ item.precioUnidad }}</p>
+            <p>Cantidad: {{ item.cantidad }}</p>
+            <p>Total: S/ {{ item.precioTotal }}</p>
+          </ion-label>
+        </div>
+
+        <div>
+          <ion-button
+            [disabled]="isUpdating"
+            (click)="updateQuantity(item, 'increase')"
+          >
+            <ion-icon
+              size="large"
+              slot="icon-only"
+              name="add-circle-outline"
+            ></ion-icon>
+          </ion-button>
+          <ion-button
+            [disabled]="isUpdating"
+            (click)="updateQuantity(item, 'decrease')"
+          >
+            <ion-icon
+              size="large"
+              slot="icon-only"
+              name="remove-circle-outline"
+            ></ion-icon>
+          </ion-button>
+
+          <ion-button color="danger" (click)="removeItem(item)">
+            <ion-icon
+              size="large"
+              slot="icon-only"
+              name="trash-outline"
+            ></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <ion-card>
+    <ion-button expand="full" fill="clear">
+      <span>Precio total: </span> S/ {{ precioTotalFinal }}
+    </ion-button>
+  </ion-card>
+
+  <ion-button expand="full" (click)="continueShopping()"
+    >Continuar comprando</ion-button
+  >
+  } @else {
+  <div style="text-align: center">
+    <ion-text> No hay prouctos en el carrito </ion-text>
+  </div>
+  } } @else {
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    "
+  >
+    <ion-spinner></ion-spinner>
+  </div>
+
+  }
 </ion-content>

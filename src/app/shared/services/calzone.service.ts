@@ -5,6 +5,8 @@ import {
   Firestore,
   addDoc,
   collection,
+  doc,
+  getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -49,6 +51,24 @@ export class CalzoneService {
           });
 
           observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  gettingCalzoneWithId(id: string): Observable<CalzoneDB> {
+    const coleccionReferencia = doc(this._fireStore, `calzone/${id}`);
+    return new Observable((observer) => {
+      getDoc(coleccionReferencia)
+        .then((querySnapShot) => {
+          const item = {
+            id: querySnapShot.id,
+            ...querySnapShot.data(),
+          } as CalzoneDB;
+          observer.next(item);
           observer.complete();
         })
         .catch((error) => {

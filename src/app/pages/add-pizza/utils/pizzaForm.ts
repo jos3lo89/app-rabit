@@ -35,3 +35,25 @@ export const fb = () => {
     }),
   });
 };
+
+export const fb2 = () => {
+  const fb = inject(FormBuilder);
+
+  return fb.group({
+    nombre: fb.control('', [Validators.required]),
+    descripcion: fb.control('', [Validators.required]),
+    descuento: fb.control('0.0', [Validators.required]),
+    tamanosPrecios: fb.group({
+      familiar: fb.control(null, Validators.required),
+      mediana: fb.control(null, Validators.required),
+      personal: fb.control(null, Validators.required),
+    }),
+    opciones: fb.group({
+      cambioDeMasa: fb.control(true),
+      cambioSabor: fb.control(true),
+      esEntero: fb.control(true),
+      esDuo: fb.control(false),
+      esCuatroEstaciones: fb.control(false),
+    }),
+  });
+};

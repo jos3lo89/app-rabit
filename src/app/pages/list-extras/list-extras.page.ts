@@ -51,6 +51,12 @@ export class ListExtrasPage implements OnInit {
   }
   pushDetails(id: string) {
     console.log(id);
+    this._router.navigate(['/details-extras'], {
+      queryParams: {
+        id,
+        backUrl: 'list-extras',
+      },
+    });
   }
 
   pushRouter(route: string) {

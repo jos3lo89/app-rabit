@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { PizzaService } from 'src/app/shared/services/pizza.service';
 import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
 import { NavigationExtras, Router } from '@angular/router';
+import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
   selector: 'app-list-pizzas',
@@ -16,6 +17,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class ListPizzasPage {
   private _pizzasService = inject(PizzaService);
   private _router = inject(Router);
+  private _cartService = inject(CartService);
 
   pizzas: PizzaDb[] | null = null;
   filteredPizzas: PizzaDb[] | null = null;
@@ -64,4 +66,6 @@ export class ListPizzasPage {
   pushRouter(route: string) {
     this._router.navigateByUrl(route);
   }
+
+
 }

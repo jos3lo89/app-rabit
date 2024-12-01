@@ -2,7 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
+  getDoc,
   getDocs,
 } from '@angular/fire/firestore';
 import { UploadImageService } from './upload-image.service';
@@ -49,6 +51,24 @@ export class ExtrasService {
           });
 
           observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  gettingExtraWithId(id: string): Observable<ExtrasDb> {
+    const coleccionReferencia = doc(this._fireStore, `extras/${id}`);
+    return new Observable((observer) => {
+      getDoc(coleccionReferencia)
+        .then((querySnapShot) => {
+          const item = {
+            id: querySnapShot.id,
+            ...querySnapShot.data(),
+          } as ExtrasDb;
+          observer.next(item);
           observer.complete();
         })
         .catch((error) => {

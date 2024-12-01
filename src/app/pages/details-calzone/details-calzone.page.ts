@@ -4,22 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { PizzaService } from 'src/app/shared/services/pizza.service';
-import { PizzaDb } from 'src/app/shared/interfaces/pizza.interfaces';
+import { RollsService } from 'src/app/shared/services/rolls.service';
+import { CalzoneService } from 'src/app/shared/services/calzone.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
+import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
 import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
-  selector: 'app-details-pizza',
-  templateUrl: './details-pizza.page.html',
-  styleUrls: ['./details-pizza.page.scss'],
+  selector: 'app-details-calzone',
+  templateUrl: './details-calzone.page.html',
+  styleUrls: ['./details-calzone.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule],
 })
-export class DetailsPizzaPage implements OnInit {
+export class DetailsCalzonePage implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _authService = inject(AuthService);
-  private _pizzaService = inject(PizzaService);
+  private _calzoneService = inject(CalzoneService);
   private _router = inject(Router);
   private _toast = inject(ToastService);
   private _cartService = inject(CartService);
@@ -29,52 +30,12 @@ export class DetailsPizzaPage implements OnInit {
     backUrl: '',
   };
 
-  opcionesDuo = ['Hawaiana', 'Pepperoni', 'Vegetariana', 'Carnes'];
-  opcionesCuatroEstaciones = [
-    'Hawaiana',
-    'Pepperoni',
-    'Vegetariana',
-    'Mexicana',
-  ];
-
-  pizza: PizzaDb | null = null;
+  calzone: CalzoneDB | null = null;
   userId: string | null = null;
-  tamanoSeleccionado: string = 'familiar';
   precioUnitario: number = 0;
   precioTotal: number = this.precioUnitario;
   quantity: number = 1;
-  tipoSeleccionado: string = 'salada';
-  masaSeleccionada: string = 'clasica';
   addToCartLoading = false;
-
-  onTipoChange(event: any) {
-    console.log(event.detail.value);
-    this.tipoSeleccionado = event.detail.value;
-  }
-
-  onMasaChange(event: any) {
-    console.log(event.detail.value);
-    this.masaSeleccionada = event.detail.value;
-  }
-
-  onTamanoChange(event: any) {
-    console.log(event.detail.value);
-    this.tamanoSeleccionado = event.detail.value;
-
-    this.tamanoSeleccionado = event.detail.value;
-
-    if (this.tamanoSeleccionado === 'familiar' && this.pizza) {
-      this.precioUnitario = this.pizza.tamanosPrecios.familiar;
-    }
-    if (this.tamanoSeleccionado === 'mediana' && this.pizza) {
-      this.precioUnitario = this.pizza.tamanosPrecios.mediana;
-    }
-    if (this.tamanoSeleccionado === 'personal' && this.pizza) {
-      this.precioUnitario = this.pizza.tamanosPrecios.personal;
-    }
-
-    this.onPriceChange();
-  }
 
   onPriceChange() {
     if (this.precioUnitario !== null) {
@@ -116,11 +77,11 @@ export class DetailsPizzaPage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    this._pizzaService.gettingPizzaWithId(this.params.id).subscribe({
+    this._calzoneService.gettingCalzoneWithId(this.params.id).subscribe({
       next: (data) => {
         console.log(data);
-        this.pizza = data;
-        this.precioUnitario = this.pizza.tamanosPrecios.familiar;
+        this.calzone = data;
+        this.precioUnitario = this.calzone.precio;
         this.onPriceChange();
       },
       error: (error) => {
@@ -143,35 +104,27 @@ export class DetailsPizzaPage implements OnInit {
 
       return;
     }
-    if (!this.pizza) return;
+    if (!this.calzone) return;
 
     try {
       this.addToCartLoading = true;
 
       const result = await this._cartService.addToCart({
         cantidad: this.quantity,
-        idItem: this.pizza.id,
-        descuento: parseFloat(this.pizza.descuento),
+        idItem: this.calzone.id,
+        descuento: 0.0,
         idUser: this.userId,
-        imagen: this.pizza.image,
-        nombre: this.pizza.nombre,
+        imagen: this.calzone.image,
+        nombre: this.calzone.nombre,
         precioTotal: this.precioTotal,
         precioUnidad: this.precioUnitario,
-        pizzaDetail: {
-          esCuatroEstaciones: this.pizza.opciones.esCuatroEstaciones,
-          esDuo: this.pizza.opciones.esDuo,
-          esEntero: this.pizza.opciones.esEntero,
-          masa: this.masaSeleccionada,
-          tamano: this.tamanoSeleccionado,
-          sabor: this.tipoSeleccionado,
-        },
       });
 
       if (!result) {
         this._toast.getToast('Error al añadir null', 'middle', 'warning');
       }
 
-      this._toast.getToast('Pizza agregado al carrito', 'middle', 'success');
+      this._toast.getToast('Calzone agregado al carrito', 'middle', 'success');
 
       this.addToCartLoading = false;
     } catch (error) {

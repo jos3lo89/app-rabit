@@ -4,6 +4,8 @@ import {
   Firestore,
   addDoc,
   getDocs,
+  doc,
+  getDoc,
 } from '@angular/fire/firestore';
 import { UploadImageService } from './upload-image.service';
 import { Drink, DrinkDb } from '../interfaces/drink.interfaces';
@@ -48,6 +50,24 @@ export class DrinkService {
           });
 
           observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  gettingDrinkWithId(id: string): Observable<DrinkDb> {
+    const coleccionReferencia = doc(this._fireStore, `drinks/${id}`);
+    return new Observable((observer) => {
+      getDoc(coleccionReferencia)
+        .then((querySnapShot) => {
+          const item = {
+            id: querySnapShot.id,
+            ...querySnapShot.data(),
+          } as DrinkDb;
+          observer.next(item);
           observer.complete();
         })
         .catch((error) => {

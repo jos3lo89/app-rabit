@@ -15,11 +15,11 @@ import { Router } from '@angular/router';
 })
 export class ListDrinksPage implements OnInit {
   private _drinkService = inject(DrinkService);
-  private _router = inject(Router)
+  private _router = inject(Router);
   drinks: DrinkDb[] | null = null;
   filteredDrinksF: DrinkDb[] | null = null;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.getingDrinks();
@@ -51,12 +51,15 @@ export class ListDrinksPage implements OnInit {
   }
   pushDetails(id: string) {
     console.log(id);
+    this._router.navigate(['/details-drink'], {
+      queryParams: {
+        id,
+        backUrl: 'list-drinks',
+      },
+    });
   }
-
 
   pushRouter(route: string) {
-    this._router.navigateByUrl(route)
+    this._router.navigateByUrl(route);
   }
-
-
 }

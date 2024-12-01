@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Camera, CameraSource } from '@capacitor/camera';
+import { CameraSource } from '@capacitor/camera';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { addIcons } from 'ionicons';
 import { camera, close, image } from 'ionicons/icons';
@@ -28,57 +28,58 @@ export class AddRollsPage {
   private _router = inject(Router);
   private _uploadImageService = inject(UploadImageService);
   private _rollsService = inject(RollsService);
-  private _toast = inject(ToastService)
+  private _toast = inject(ToastService);
 
   dynamicPrice: number = 0;
   openModal = false;
   fotoRoll: string | null = null;
-  addLoading = false
-  rolls: RollsDb[] | null = null
+  addLoading = false;
+  rolls: RollsDb[] | null = null;
   CameraSource = CameraSource;
 
   form = this._fb.group({
     nombre: this._fb.control('', [Validators.required]),
     descripcion: this._fb.control('', [Validators.required]),
-    precio: this._fb.control(5, [Validators.required]),
+    precio: this._fb.control('', [Validators.required]),
   });
 
   constructor() {
     addIcons({ camera, close, image });
   }
 
-
   async addRoll() {
     try {
+      console.log('wdaff', this.form.value);
       const { descripcion, nombre, precio } = this.form.value;
 
       if (!this.fotoRoll) {
-        console.log("Insertar un foto");
-        return
-      };
+        console.log('Insertar un foto');
+        this._toast.getToast('Insertar un foto', 'middle', 'warning');
+
+        return;
+      }
 
       if (!descripcion || !nombre || !precio) return;
 
-
-      this.addLoading = true
+      this.addLoading = true;
 
       await this._rollsService.addRolls(
         {
           descripcion,
           nombre,
-          precio,
+          precio: parseInt(precio),
         },
         this.fotoRoll
       );
 
-      this._toast.getToast("registrado con exito", "middle", "success")
-      this.form.reset()
-      this.fotoRoll = null
-      this.addLoading = false
+      this._toast.getToast('registrado con exito', 'middle', 'success');
+      this.form.reset();
+      this.fotoRoll = null;
+      this.addLoading = false;
     } catch (error) {
       console.log(error);
-      this._toast.getToast("Error al registrar", "bottom", "danger")
-      this.addLoading = false
+      this._toast.getToast('Error al registrar', 'bottom', 'danger');
+      this.addLoading = false;
     }
   }
 

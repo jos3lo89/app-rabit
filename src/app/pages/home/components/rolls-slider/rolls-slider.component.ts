@@ -38,5 +38,11 @@ export class RollsSliderComponent {
   }
   pushDetails(id: string) {
     console.log(id);
+    this._route.navigate(['/details-rolls'], {
+      queryParams: {
+        id,
+        backUrl: 'home',
+      },
+    });
   }
 }

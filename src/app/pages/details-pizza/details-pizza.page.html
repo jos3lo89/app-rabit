@@ -15,40 +15,53 @@
   </ion-card>
 
   <ion-card class="box-details">
-    <ion-card-title>{{ pizza.nombre }}</ion-card-title>
+    <ion-card-title style="color: cornflowerblue"
+      >{{ pizza.nombre }}</ion-card-title
+    >
     <ion-text>{{pizza.descripcion}}</ion-text>
   </ion-card>
 
+  @if (pizza.opciones.cambioDeMasa || pizza.opciones.cambioSabor) {
+
   <ion-card class="box-type">
+    @if (pizza.opciones.cambioDeMasa) {
+
     <div class="box-text">
       <ion-select
         label="Tipo de masa"
         labelPlacement="floating"
-        [value]="pizza.masa"
+        [value]="masaSeleccionada"
+        (ionChange)="onMasaChange($event)"
       >
         <ion-select-option value="artesanal">artesanal</ion-select-option>
         <ion-select-option value="clasica">clasica</ion-select-option>
       </ion-select>
     </div>
+    } @if (pizza.opciones.cambioSabor) {
+
     <div class="box-text">
       <ion-select
         label="Tipo de sabor"
         labelPlacement="floating"
-        [value]="pizza.opciones.tipo"
+        [value]="tipoSeleccionado"
+        (ionChange)="onTipoChange($event)"
       >
         <ion-select-option value="salada">salada</ion-select-option>
         <ion-select-option value="dulce">dulce</ion-select-option>
         <ion-select-option value="salada-dulce">salada dulce</ion-select-option>
       </ion-select>
     </div>
+    }
   </ion-card>
+  }
 
   <ion-card class="box-price-select">
     <ion-select
       style="max-width: 150px"
       label="Precio"
       labelPlacement="floating"
-      [value]="'familiar'"
+      [value]="tamanoSeleccionado"
+      (ionChange)="onTamanoChange($event)"
     >
       <ion-select-option value="familiar">familiar</ion-select-option>
       <ion-select-option value="mediana">mediana</ion-select-option>
@@ -56,7 +69,7 @@
     </ion-select>
   </ion-card>
 
-  @if (pizza.tipoPizza === 'duo') {
+  @if (pizza.opciones.esDuo) {
   <ion-card>
     <ion-card-header style="text-align: center">
       <ion-card-title>Seleccione las 2 mitades</ion-card-title>
@@ -67,10 +80,9 @@
         label="Primer mitad"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (opt of opcionesDuo; track $index) {
+        <ion-select-option value="{{opt}}">{{opt}}</ion-select-option>
+        }
       </ion-select>
     </div>
     <div style="display: flex; justify-content: center">
@@ -79,14 +91,13 @@
         label="segunda midad"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (opt of opcionesDuo; track $index) {
+        <ion-select-option value="{{opt}}">{{opt}}</ion-select-option>
+        }
       </ion-select>
     </div>
   </ion-card>
-  } @if (pizza.tipoPizza === 'cuatro-estaciones') {
+  } @if (pizza.opciones.esCuatroEstaciones) {
   <ion-card>
     <ion-card-header style="text-align: center">
       <ion-card-title>Seleccione las 4 estaciones</ion-card-title>
@@ -94,49 +105,49 @@
     <div style="display: flex; justify-content: center">
       <ion-select
         style="max-width: 150px"
-        label="cuarto 1"
+        label="Primera estación"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (item of opcionesCuatroEstaciones; track $index) {
+
+        <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+        }
       </ion-select>
     </div>
     <div style="display: flex; justify-content: center">
       <ion-select
         style="max-width: 150px"
-        label="cuarto 2"
+        label="Segunda estación"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (item of opcionesCuatroEstaciones; track $index) {
+
+        <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+        }
       </ion-select>
     </div>
     <div style="display: flex; justify-content: center">
       <ion-select
         style="max-width: 150px"
-        label="cuarto 3"
+        label="Tercera estación"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (item of opcionesCuatroEstaciones; track $index) {
+
+        <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+        }
       </ion-select>
     </div>
     <div style="display: flex; justify-content: center">
       <ion-select
         style="max-width: 150px"
-        label="cuarto 4"
+        label="Cuarta estación"
         labelPlacement="floating"
       >
-        <ion-select-option value="Americana">Americana </ion-select-option>
-        <ion-select-option value="Hawaiana">Hawaiana</ion-select-option>
-        <ion-select-option value="otro 1">otro 1</ion-select-option>
-        <ion-select-option value="otro 2">otro 2</ion-select-option>
+        @for (item of opcionesCuatroEstaciones; track $index) {
+
+        <ion-select-option value="{{item}}">{{item}} </ion-select-option>
+        }
       </ion-select>
     </div>
   </ion-card>
@@ -147,11 +158,11 @@
       <div class="detalles-card-box">
         <div class="detalle-card">
           <p>Unidad</p>
-          <strong>S/ {{"55"}}</strong>
+          <strong>S/ {{precioUnitario}}</strong>
         </div>
         <div class="detalle-card">
           <p>Total</p>
-          <strong>S/ {{"33"}} </strong>
+          <strong>S/ {{precioTotal}} </strong>
         </div>
       </div>
 
@@ -183,7 +194,7 @@
 
   <ion-card>
     <ion-button expand="block" (click)="addToCart()"
-      >Agregar al carrito</ion-button
+      >{{ addToCartLoading ? "Agregando" : "Agregar al carrito"}}</ion-button
     >
   </ion-card>
 

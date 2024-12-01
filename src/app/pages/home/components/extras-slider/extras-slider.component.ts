@@ -51,5 +51,11 @@ export class ExtrasSliderComponent {
 
   pushDetails(id: string) {
     console.log(id);
+    this._router.navigate(['/details-extras'], {
+      queryParams: {
+        id,
+        backUrl: 'home',
+      },
+    });
   }
 }

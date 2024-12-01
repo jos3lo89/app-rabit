@@ -51,5 +51,11 @@ export class DrinksSliderComponent {
 
   pushDetails(id: string) {
     console.log(id);
+    this._router.navigate(['/details-drink'], {
+      queryParams: {
+        id,
+        backUrl: 'home',
+      },
+    });
   }
 }

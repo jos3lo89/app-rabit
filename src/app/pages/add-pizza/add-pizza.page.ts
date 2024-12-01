@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CameraSource } from '@capacitor/camera';
@@ -9,7 +9,7 @@ import { camera, close, image } from 'ionicons/icons';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { UploadImageService } from 'src/app/shared/services/upload-image.service';
 import { PizzaService } from 'src/app/shared/services/pizza.service';
-import { fb } from './utils/pizzaForm';
+import { fb, fb2 } from './utils/pizzaForm';
 
 @Component({
   selector: 'app-add-pizza',
@@ -30,10 +30,20 @@ export class AddPizzaPage implements OnInit {
   openModal = false;
   CameraSource = CameraSource;
   guardando = false;
-  form = fb();
+  form = fb2();
 
   constructor() {
     addIcons({ camera, image, close });
+  }
+
+  actualizarOpciones(opcion: string) {
+    const opciones = this.form.get('opciones') as FormGroup;
+
+    const controlesExclusivos = ['esEntero', 'esDuo', 'esCuatroEstaciones'];
+
+    controlesExclusivos.forEach((key) => {
+      opciones.get(key)?.setValue(key === opcion);
+    });
   }
 
   async guardarPizza() {
@@ -69,26 +79,9 @@ export class AddPizzaPage implements OnInit {
     this._router.navigateByUrl(route);
   }
 
-  get tipoPizza() {
-    return this.form.get('tipoPizza')?.value;
-  }
-
   async takeImage(source: CameraSource) {
     this.fotoPizza = await this._uploadImageService.takeImage(source);
     this.closeModal();
-  }
-
-  onTipoPizzaChange() {
-    const tipoPizza = this.form.get('tipoPizza')?.value;
-
-    if (tipoPizza === 'duo') {
-      this.form.get('cuatroEstaciones')?.reset();
-    } else if (tipoPizza === 'cuatro-estaciones') {
-      this.form.get('duo')?.reset();
-    } else {
-      this.form.get('duo')?.reset();
-      this.form.get('cuatroEstaciones')?.reset();
-    }
   }
 
   closeModal() {
@@ -96,5 +89,9 @@ export class AddPizzaPage implements OnInit {
   }
   openModal2() {
     this.openModal = true;
+  }
+
+  quitarFoto() {
+    this.fotoPizza = null;
   }
 }

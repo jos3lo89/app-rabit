@@ -1,4 +1,4 @@
-import { Component, inject, } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,43 +11,41 @@ import { CalzoneDB } from 'src/app/shared/interfaces/calzone.interfaces';
   templateUrl: './list-calzone.page.html',
   styleUrls: ['./list-calzone.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule],
 })
 export class ListCalzonePage {
+  private _calzoneService = inject(CalzoneService);
+  private _router = inject(Router);
 
-  private _calzoneService = inject(CalzoneService)
-  private _router = inject(Router)
-
-  calzones: CalzoneDB[] | null = null
-  filteredCalzone: CalzoneDB[] | null = null
-
-
-
+  calzones: CalzoneDB[] | null = null;
+  filteredCalzone: CalzoneDB[] | null = null;
 
   constructor() {
-    this.getingCalzone()
+    this.getingCalzone();
   }
 
   getingCalzone() {
     this._calzoneService.getingCalzone().subscribe({
       next: (data) => {
-        this.calzones = data
-        this.filteredCalzone = data
+        this.calzones = data;
+        this.filteredCalzone = data;
         console.log(data);
-
       },
       error: (error) => {
         console.log(error);
-
-      }
-    })
+      },
+    });
   }
 
   pushDetails(id: string) {
     console.log(id);
-
+    this._router.navigate(['/details-calzone'], {
+      queryParams: {
+        id,
+        backUrl: 'list-calzone',
+      },
+    });
   }
-
 
   filterCalzone(event: any) {
     const query = event.detail.value?.toLowerCase() || '';
@@ -63,7 +61,6 @@ export class ListCalzonePage {
   }
 
   pushRouter(route: string) {
-    this._router.navigateByUrl(route)
+    this._router.navigateByUrl(route);
   }
-
 }
